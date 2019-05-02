@@ -1,0 +1,13 @@
+# yaml , mysql
+storage: yaml
+
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  database: default
+  username: root
+  password: ''
+  use-ssl: false
+  pool:
+    min-size: 5
+    max-size: 10

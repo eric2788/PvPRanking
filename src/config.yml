@@ -1,0 +1,8 @@
+# "Z_SCORE" , "MIN_MAX"
+ran-cal-method: Z_SCORE
+
+# how many plays required before they will have rank
+require-plays: 20
+
+# update time (24 hours)
+update-time: 00:00
