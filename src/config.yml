@@ -1,13 +1,13 @@
-# "Z_SCORE" , "MIN_MAX"
+# 目前支援兩種演算法: "Z_SCORE" , "MIN_MAX"
 ran-cal-method: Z_SCORE
 
-# how many plays required before they will have rank
+# 玩家的戰數需要達到特定才會有排位
 require-plays: 20
 
-# update time (24 hours)
+# 重設時間 (24 小時制)
 update-time: 00:00
 
-# translate msg
+# 玩家排位資訊訊息顯示
 info-message:
   - "&b玩家: &e<name>"
   - "&b段位: &e<rank>"

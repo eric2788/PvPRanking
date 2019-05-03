@@ -61,7 +61,7 @@ public class YamlStorage implements DataStorage {
         File[] files = folder.listFiles();
         if (files == null) return rankData;
         for (File file : files) {
-            if (!FilenameUtils.getExtension(file.getPath()).equals(".yml")) continue;
+            if (!FilenameUtils.getExtension(file.getPath()).equals("yml")) continue;
             UUID uuid = UUID.fromString(FilenameUtils.getBaseName(file.getPath()));
             RankData rank = getRankData(uuid);
             if (rank == null) continue;

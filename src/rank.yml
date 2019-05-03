@@ -1,3 +1,22 @@
-# left : lowest , right: highest
-ranks: ["Silver I", "Silver II", "Silver III", "Silver IV", "Silver V", "Nova I", "Nova II",
-        "Nova III", "Nova IV", "Nova V", "Diamond I", "Diamond II", "Diamond III", "Diamond IV", "Diamond V", "Elite I", "Elite II", "Global Elite"]
+# 最上 = 最低
+# 最下 = 最高
+ranks:
+  - "Silver I"
+  - "Silver II"
+  - "Silver III"
+  - "Silver IV"
+  - "Silver V"
+  - "Nova I"
+  - "Nova II"
+  - "Nova III"
+  - "Nova IV"
+  - "Nova V"
+  - "Diamond I"
+  - "Diamond II"
+  - "Diamond III"
+  - "Diamond IV"
+  - "Diamond V"
+  - "Elite I"
+  - "Elite II"
+  - "Global Elite"
+
