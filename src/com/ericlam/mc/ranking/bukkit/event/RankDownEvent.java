@@ -3,10 +3,9 @@ package com.ericlam.mc.ranking.bukkit.event;
 import com.ericlam.mc.ranking.RankData;
 import org.bukkit.entity.Player;
 
-public class RankUpEvent extends RankEvent {
+public class RankDownEvent extends RankEvent {
 
-    public RankUpEvent(Player who, RankData oldRank, RankData newRank) {
+    public RankDownEvent(Player who, RankData oldRank, RankData newRank) {
         super(who, oldRank, newRank);
     }
-
 }

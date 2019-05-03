@@ -5,7 +5,7 @@ import com.ericlam.mc.ranking.api.PlayerData;
 import javax.annotation.Nonnull;
 import java.util.UUID;
 
-public class RankData implements Comparable<RankData> {
+public class RankData implements Comparable<RankData>, Cloneable {
 
     private PlayerData data;
     private String rank;
@@ -14,14 +14,6 @@ public class RankData implements Comparable<RankData> {
     public RankData(PlayerData data, String rank, double nScores) {
         this.data = data;
         this.rank = rank;
-        this.nScores = nScores;
-    }
-
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
-
-    public void setnScores(double nScores) {
         this.nScores = nScores;
     }
 
@@ -64,5 +56,10 @@ public class RankData implements Comparable<RankData> {
     @Override
     public int compareTo(@Nonnull RankData o) {
         return Double.compare(this.getFinalScores(),o.getFinalScores());
+    }
+
+    @Override
+    public RankData clone() {
+        return new RankData(this.data, this.rank, this.nScores);
     }
 }

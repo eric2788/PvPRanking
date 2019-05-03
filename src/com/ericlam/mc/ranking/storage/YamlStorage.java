@@ -39,20 +39,27 @@ public class YamlStorage implements DataStorage {
 
     @Override
     public RankData getRankData(UUID playerUniqueId) {
+        PlayerData data = RankDataManager.getInstance().getDataHandler().getPlayerData(playerUniqueId);
         File file = new File(folder,playerUniqueId.toString()+".yml");
-        if (!file.exists()) return null;
+        if (!file.exists()) return new RankData(data, "未定位", 0.0);
         FileConfiguration user = YamlConfiguration.loadConfiguration(file);
         double nScore = user.getDouble("n-score");
         String rank = user.getString("rank");
-        PlayerData data = RankDataManager.getInstance().getDataHandler().getPlayerData(playerUniqueId);
         return new RankData(data,rank,nScore);
+    }
+
+    @Override
+    public boolean removeRankData(UUID playerUniqueId) {
+        File file = new File(folder, playerUniqueId.toString() + ".yml");
+        if (!file.exists()) return false;
+        return file.delete();
     }
 
     @Override
     public TreeSet<RankData> loadRankData() {
         TreeSet<RankData> rankData = new TreeSet<>();
         File[] files = folder.listFiles();
-        if (files == null) return null;
+        if (files == null) return rankData;
         for (File file : files) {
             if (!FilenameUtils.getExtension(file.getPath()).equals(".yml")) continue;
             UUID uuid = UUID.fromString(FilenameUtils.getBaseName(file.getPath()));

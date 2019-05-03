@@ -1,5 +1,6 @@
 package com.ericlam.mc.ranking;
 
+import com.ericlam.mc.rankcal.RankDataManager;
 import com.ericlam.mc.ranking.api.PlayerData;
 
 import javax.annotation.Nonnull;
@@ -27,10 +28,12 @@ public class DefaultData implements PlayerData {
 
     public void addKills(){
         ++kills;
+        RankDataManager.getInstance().update(uuid);
     }
 
     public void addDeaths(){
         ++deaths;
+        RankDataManager.getInstance().update(uuid);
     }
 
     @Override

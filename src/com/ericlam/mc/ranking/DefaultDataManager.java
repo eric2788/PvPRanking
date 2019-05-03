@@ -2,6 +2,7 @@ package com.ericlam.mc.ranking;
 
 import com.ericlam.mc.ranking.main.PvPRanking;
 import com.ericlam.mc.ranking.sql.SQLManager;
+import org.apache.commons.io.FilenameUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -63,6 +64,17 @@ public class DefaultDataManager {
         }
     }
 
+    public void saveData(UUID uuid) {
+        switch (PvPRanking.getStorage()) {
+            case MYSQL:
+                saveSQLData(uuid);
+                break;
+            case YAML:
+            default:
+                saveYamlData(uuid);
+        }
+    }
+
     public DefaultData getData(UUID uuid){
         switch (PvPRanking.getStorage()){
             case MYSQL:
@@ -73,22 +85,47 @@ public class DefaultDataManager {
         }
     }
 
+    public TreeSet<DefaultData> getAllData() {
+        switch (PvPRanking.getStorage()) {
+            case MYSQL:
+                return getSQLData();
+            case YAML:
+            default:
+                return getYamlData();
+        }
+    }
+
     private void saveSQLData(){
         try(Connection connection = SQLManager.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `DefaultData` (`UUID` VARCHAR(40) NOT NULL , `Kills` INT NOT NULL , `Deaths` INT NOT NULL )")){
             statement.execute();
             for (DefaultData data : datas) {
-                try(PreparedStatement save = connection.prepareStatement("INSERT INTO `DefaultData` VALUES(?,?,?) ON DUPLICATE KEY UPDATE `Kills` = ? , `Deaths` = ?")){
-                    save.setString(1,data.getPlayerUniqueId().toString());
-                    save.setInt(2,data.getKills());
-                    save.setInt(3,data.getDeaths());
-                    save.setInt(4,data.getKills());
-                    save.setInt(5,data.getDeaths());
-                    save.execute();
-                }
+                stmt(connection, data);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void saveSQLData(UUID uuid) {
+        try (Connection connection = SQLManager.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `DefaultData` (`UUID` VARCHAR(40) NOT NULL , `Kills` INT NOT NULL , `Deaths` INT NOT NULL )")) {
+            statement.execute();
+            DefaultData data = findData(uuid);
+            stmt(connection, data);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void stmt(Connection connection, DefaultData data) throws SQLException {
+        try (PreparedStatement save = connection.prepareStatement("INSERT INTO `DefaultData` VALUES(?,?,?) ON DUPLICATE KEY UPDATE `Kills` = ? , `Deaths` = ?")) {
+            save.setString(1, data.getPlayerUniqueId().toString());
+            save.setInt(2, data.getKills());
+            save.setInt(3, data.getDeaths());
+            save.setInt(4, data.getKills());
+            save.setInt(5, data.getDeaths());
+            save.execute();
         }
     }
 
@@ -96,15 +133,26 @@ public class DefaultDataManager {
         File folder = new File(plugin.getDataFolder(),"Default_Data");
         if (!folder.exists()) folder.mkdir();
         for (DefaultData data : datas) {
-            File yml = new File(folder,data.getPlayerUniqueId().toString()+".yml");
-            FileConfiguration user = new YamlConfiguration();
-            user.set("kills",data.getKills());
-            user.get("deaths",data.getDeaths());
-            try {
-                user.save(yml);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ymlSave(folder, data);
+        }
+    }
+
+    private void saveYamlData(UUID uuid) {
+        File folder = new File(plugin.getDataFolder(), "Default_Data");
+        if (!folder.exists()) folder.mkdir();
+        DefaultData data = findData(uuid);
+        ymlSave(folder, data);
+    }
+
+    private void ymlSave(File folder, DefaultData data) {
+        File yml = new File(folder, data.getPlayerUniqueId().toString() + ".yml");
+        FileConfiguration user = new YamlConfiguration();
+        user.set("kills", data.getKills());
+        user.get("deaths", data.getDeaths());
+        try {
+            user.save(yml);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -124,6 +172,22 @@ public class DefaultDataManager {
         return new DefaultData(uuid,0,0);
     }
 
+    private TreeSet<DefaultData> getSQLData() {
+        TreeSet<DefaultData> data = new TreeSet<>();
+        try (Connection connection = SQLManager.getInstance().getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM `DefaultData`")) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                UUID playerUniqueId = UUID.fromString(resultSet.getString("UUID"));
+                int kills = resultSet.getInt("Kills");
+                int deaths = resultSet.getInt("Deaths");
+                data.add(new DefaultData(playerUniqueId, kills, deaths));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
     private DefaultData getYamlData(UUID uuid){
         File folder = new File(plugin.getDataFolder(),"Default_Data");
         if (!folder.exists()) folder.mkdir();
@@ -133,6 +197,23 @@ public class DefaultDataManager {
         int kills = user.getInt("kills");
         int deaths = user.getInt("deaths");
         return new DefaultData(uuid,kills,deaths);
+    }
+
+    private TreeSet<DefaultData> getYamlData() {
+        TreeSet<DefaultData> data = new TreeSet<>();
+        File folder = new File(plugin.getDataFolder(), "Default_Data");
+        if (!folder.exists()) folder.mkdir();
+        File[] files = folder.listFiles();
+        if (files == null) return data;
+        for (File file : files) {
+            if (!FilenameUtils.getExtension(file.getPath()).equals(".yml")) continue;
+            UUID uuid = UUID.fromString(FilenameUtils.getBaseName(file.getPath()));
+            FileConfiguration user = YamlConfiguration.loadConfiguration(file);
+            int kills = user.getInt("kills");
+            int deaths = user.getInt("deaths");
+            data.add(new DefaultData(uuid, kills, deaths));
+        }
+        return data;
     }
 
 

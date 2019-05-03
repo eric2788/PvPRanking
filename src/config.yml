@@ -6,3 +6,11 @@ require-plays: 20
 
 # update time (24 hours)
 update-time: 00:00
+
+# translate msg
+info-message:
+  - "&b玩家: &e<name>"
+  - "&b段位: &e<rank>"
+  - "&b積分: &e<score>"
+  - "&b標準分: &e<n-score>"
+  - "&b戰數: &e<plays>"

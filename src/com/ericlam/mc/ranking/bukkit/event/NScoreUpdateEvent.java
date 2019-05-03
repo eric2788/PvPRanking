@@ -1,6 +1,5 @@
 package com.ericlam.mc.ranking.bukkit.event;
 
-import com.ericlam.mc.rankcal.RankDataManager;
 import com.ericlam.mc.ranking.RankData;
 import com.ericlam.mc.ranking.api.PlayerData;
 import org.bukkit.entity.Player;
@@ -11,16 +10,18 @@ public class NScoreUpdateEvent extends PlayerEvent {
 
     private PlayerData playerData;
     private RankData rankData;
+    private HandlerList handlerList;
 
-    public NScoreUpdateEvent(Player who) {
+    public NScoreUpdateEvent(Player who, PlayerData data, RankData rankData) {
         super(who);
-        playerData = RankDataManager.getInstance().getDataHandler().getPlayerData(who.getUniqueId());
-        rankData = RankDataManager.getInstance().update(who.getUniqueId());
+        this.playerData = data;
+        this.rankData = rankData;
+        this.handlerList = new HandlerList();
     }
 
     @Override
     public HandlerList getHandlers() {
-        return new HandlerList();
+        return handlerList;
     }
 
     public PlayerData getPlayerData() {

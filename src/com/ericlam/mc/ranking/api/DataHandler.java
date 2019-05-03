@@ -11,6 +11,10 @@ public abstract class DataHandler {
 
     public abstract TreeSet<PlayerData> getAllPlayerData();
 
+    public abstract void savePlayerData(UUID playerUniqueId);
+
+    public abstract void saveAllPlayerData();
+
     public final void register(){
         RankDataManager.getInstance().registerHandler(this);
     }

@@ -15,6 +15,8 @@ public interface DataStorage {
 
     RankData getRankData(UUID playerUniqueId);
 
+    boolean removeRankData(UUID playerUniqueId);
+
     TreeSet<RankData> loadRankData();
 
 }

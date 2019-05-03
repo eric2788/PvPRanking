@@ -1,11 +1,12 @@
 package com.ericlam.mc.ranking.main;
 
 import com.ericlam.mc.rankcal.RankDataManager;
+import com.ericlam.mc.rankcal.RefresherScheduler;
 import com.ericlam.mc.rankcal.types.CalType;
 import com.ericlam.mc.rankcal.types.Storage;
 import com.ericlam.mc.ranking.DefaultDataHandler;
-import com.ericlam.mc.ranking.DefaultDataManager;
 import com.ericlam.mc.ranking.bukkit.RankingListeners;
+import com.ericlam.mc.ranking.bukkit.commands.RankCommandExecutor;
 import com.ericlam.mc.ranking.config.ConfigManager;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,6 +48,7 @@ public class PvPRanking extends JavaPlugin {
             getLogger().warning("你所填寫的 演算 方法 并不存在！已自動改成 z_score 演算法。");
             calType = CalType.Z_SCORE;
         }
+
         try{
             storage = Storage.valueOf(configManager.getDatabase().getString("storage").toUpperCase());
         }catch (IllegalStateException e){
@@ -58,12 +60,14 @@ public class PvPRanking extends JavaPlugin {
 
         if (RankDataManager.getInstance().getDataHandler() == null) new DefaultDataHandler().register();
         getServer().getPluginManager().registerEvents(new RankingListeners(this),this);
+        getCommand("pvprank").setExecutor(new RankCommandExecutor(this));
+        new RefresherScheduler(this);
     }
 
     @Override
     public void onDisable() {
         RankDataManager.getInstance().saveRankData();
-        DefaultDataManager.getInstance().saveData();
+        RankDataManager.getInstance().getDataHandler().saveAllPlayerData();
     }
 
     public static Object getConfigData(String path){

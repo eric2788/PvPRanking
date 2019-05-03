@@ -15,6 +15,16 @@ public class DefaultDataHandler extends DataHandler {
 
     @Override
     public TreeSet<PlayerData> getAllPlayerData() {
-        return new TreeSet<PlayerData>(DefaultDataManager.getInstance().getDatas());
+        return new TreeSet<PlayerData>(DefaultDataManager.getInstance().getAllData());
+    }
+
+    @Override
+    public void savePlayerData(UUID playerUniqueId) {
+        DefaultDataManager.getInstance().saveData(playerUniqueId);
+    }
+
+    @Override
+    public void saveAllPlayerData() {
+        DefaultDataManager.getInstance().saveData();
     }
 }

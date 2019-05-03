@@ -46,19 +46,31 @@ public class MySQLStorage implements DataStorage {
 
     @Override
     public RankData getRankData(UUID playerUniqueId) {
+        PlayerData data = RankDataManager.getInstance().getDataHandler().getPlayerData(playerUniqueId);
         try(Connection connection = SQLManager.getInstance().getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM `PvPRanking` WHERE `UUID` = ?")){
             statement.setString(1,playerUniqueId.toString());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()){
                 double nScore = resultSet.getDouble("nScore");
                 String rank = resultSet.getString("Rank");
-                PlayerData data = RankDataManager.getInstance().getDataHandler().getPlayerData(playerUniqueId);
                 return new RankData(data,rank,nScore);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return new RankData(data, "未定位", 0.0);
+    }
+
+    @Override
+    public boolean removeRankData(UUID playerUniqueId) {
+        try (Connection connection = SQLManager.getInstance().getConnection(); PreparedStatement statement = connection.prepareStatement("DELETE FROM `PvPRanking` WHERE `UUID` = ?")) {
+            statement.setString(1, playerUniqueId.toString());
+            statement.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

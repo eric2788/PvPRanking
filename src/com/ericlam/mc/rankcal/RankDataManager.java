@@ -2,14 +2,19 @@ package com.ericlam.mc.rankcal;
 
 import com.ericlam.mc.rankcal.types.CalType;
 import com.ericlam.mc.rankcal.utils.Normalization;
-import com.ericlam.mc.rankcal.utils.math.AdvMath;
 import com.ericlam.mc.ranking.RankData;
 import com.ericlam.mc.ranking.api.DataHandler;
 import com.ericlam.mc.ranking.api.PlayerData;
+import com.ericlam.mc.ranking.bukkit.event.NScoreUpdateEvent;
+import com.ericlam.mc.ranking.bukkit.event.RankDownEvent;
+import com.ericlam.mc.ranking.bukkit.event.RankUpEvent;
 import com.ericlam.mc.ranking.main.PvPRanking;
 import com.ericlam.mc.ranking.storage.DataStorage;
 import com.ericlam.mc.ranking.storage.MySQLStorage;
 import com.ericlam.mc.ranking.storage.YamlStorage;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 
 import java.util.*;
 
@@ -55,8 +60,9 @@ public class RankDataManager {
         });
     }
 
-    public Optional<RankData> setRankData(UUID uuid, RankData data){
-        return rankData.stream().filter(r->r.equals(uuid)).distinct().map(r->data).findFirst();
+    public void setRankData(UUID uuid, RankData data) {
+        rankData.removeIf(l -> l.equals(uuid));
+        rankData.add(data);
     }
 
     public void saveRankData(){
@@ -72,8 +78,11 @@ public class RankDataManager {
     }
 
 
-    public RankData update(UUID uuid){
+    public void update(UUID uuid) {
+        PluginManager manager = PvPRanking.getPlugin().getServer().getPluginManager();
         PlayerData data = dataHandler.getPlayerData(uuid);
+        if (data.getPlays() < (int) PvPRanking.getConfigData("require-plays")) return;
+        RankData oldRank = getRankData(uuid).clone();
         RankData newRank;
         switch (PvPRanking.getCalType()){
             case MIN_MAX:
@@ -87,7 +96,17 @@ public class RankDataManager {
                 break;
         }
         setRankData(uuid,newRank);
-        return newRank;
+        if (oldRank.getnScores() != newRank.getnScores())
+            manager.callEvent(new NScoreUpdateEvent(Bukkit.getPlayer(uuid), data, newRank));
+        if (!oldRank.getRank().equals(newRank.getRank())) {
+            Player player = Bukkit.getPlayer(uuid);
+            if (player == null || !player.isOnline()) return;
+            manager.callEvent(newRank.getnScores() > oldRank.getnScores() ? new RankUpEvent(player, oldRank, newRank) : new RankDownEvent(player, oldRank, newRank));
+        }
+    }
+
+    public boolean removeRankData(UUID playerUniqueId) {
+        return storage.removeRankData(playerUniqueId) && rankData.removeIf(e -> e.equals(playerUniqueId));
     }
 
     public void updateRankData(){
