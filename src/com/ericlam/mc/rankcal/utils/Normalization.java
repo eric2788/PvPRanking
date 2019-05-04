@@ -16,6 +16,9 @@ public class Normalization {
     private double max;
     private ArrayCalculation cal;
 
+    /**
+     * @param data 玩家儲存數據列
+     */
     public Normalization(List<PlayerData> data) {
         this.ints = data.stream().filter(d->d.getPlays() >= (int)PvPRanking.getConfigData("required-plays")).collect(Collectors.toList());
         for (PlayerData i : ints) {
@@ -25,6 +28,13 @@ public class Normalization {
         cal = new ArrayCalculation(ints.stream().mapToDouble(PlayerData::getFinalScores).toArray());
     }
 
+    /**
+     *
+     * @param new_min 最低值
+     * @param new_max 最高值
+     * @param data 玩家存儲數據
+     * @return 該玩家的排位存儲數據
+     */
     public RankData minMaxNormalizeSingle(int new_min,int new_max,PlayerData data){
         double v = data.getFinalScores();
         double result = (v - min) / (max - min) * (new_max - new_min) + new_min;
@@ -32,6 +42,12 @@ public class Normalization {
         return new RankData(data, rank, AdvMath.round(2,result));
     }
 
+    /**
+     *
+     * @param new_min 最低值
+     * @param new_max 最高值
+     * @return 排位存儲數據列
+     */
     public RankData[] minMaxNormalize(int new_min,int new_max){
         RankData[] normalized = new RankData[ints.size()];
         for (int i = 0; i < ints.size();i++) {
@@ -41,6 +57,11 @@ public class Normalization {
         return normalized;
     }
 
+    /**
+     *
+     * @param data 玩家存儲數據
+     * @return 該玩家的排位存儲數據
+     */
     public RankData zScoreNormalizeSingle(PlayerData data){
         double v = data.getFinalScores();
         double result = (v - cal.getMean()) / cal.getSd();
@@ -48,6 +69,10 @@ public class Normalization {
         return new RankData(data,rank, AdvMath.round(2,result));
     }
 
+    /**
+     *
+     * @return 排位存儲數據列
+     */
     public RankData[] zScoreNormalize(){
         RankData[] normalized = new RankData[ints.size()];
         for (int i = 0; i < ints.size(); i++) {
@@ -57,6 +82,10 @@ public class Normalization {
         return normalized;
     }
 
+    /**
+     * @deprecated 使用 數位進制 進行的演算，目前尚不支持。
+     * @return 排位存儲數據列
+     */
     @Deprecated
     public RankData[] decimalScaling(){
         RankData[] normalized = new RankData[ints.size()];

@@ -1,5 +1,6 @@
-package com.ericlam.mc.ranking.api;
+package com.ericlam.mc.ranking;
 
+import com.ericlam.mc.ranking.api.PvPRankingAPI;
 import com.ericlam.mc.ranking.main.PvPRanking;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;

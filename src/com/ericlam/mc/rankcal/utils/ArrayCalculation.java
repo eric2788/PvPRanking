@@ -8,6 +8,9 @@ public class ArrayCalculation {
     private double sd;
     private double variance;
 
+    /**
+     * @param ints 數字串
+     */
     public ArrayCalculation(double... ints) {
         this.ints = ints;
         int result = 0;
@@ -24,14 +27,26 @@ public class ArrayCalculation {
         sd = Math.sqrt(variance);
     }
 
+    /**
+     *
+     * @return 平均值
+     */
     public double getMean() {
         return mean;
     }
 
+    /**
+     *
+     * @return 標準差
+     */
     public double getSd() {
         return sd;
     }
 
+    /**
+     *
+     * @return 方差
+     */
     public double getVariance() {
         return variance;
     }

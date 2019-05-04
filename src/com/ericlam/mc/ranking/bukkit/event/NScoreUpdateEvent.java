@@ -12,6 +12,11 @@ public class NScoreUpdateEvent extends PlayerEvent {
     private RankData rankData;
     private HandlerList handlerList;
 
+    /**
+     * @param who      玩家
+     * @param data     玩家存儲數據
+     * @param rankData 排位存儲數據
+     */
     public NScoreUpdateEvent(Player who, PlayerData data, RankData rankData) {
         super(who);
         this.playerData = data;
@@ -24,10 +29,18 @@ public class NScoreUpdateEvent extends PlayerEvent {
         return handlerList;
     }
 
+    /**
+     *
+     * @return 玩家存儲數據
+     */
     public PlayerData getPlayerData() {
         return playerData;
     }
 
+    /**
+     *
+     * @return 玩家排位數據
+     */
     public RankData getRankData() {
         return rankData;
     }

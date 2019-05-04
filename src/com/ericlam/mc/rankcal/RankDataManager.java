@@ -26,6 +26,9 @@ public class RankDataManager {
     private TreeSet<RankData> rankData = new TreeSet<>();
     private Normalization normal;
 
+    /**
+     * @return 此 Class 實例
+     */
     public static RankDataManager getInstance() {
         if (rankDataManager == null) rankDataManager = new RankDataManager();
         return rankDataManager;
@@ -50,8 +53,29 @@ public class RankDataManager {
         this.dataHandler = handler;
     }
 
-    public boolean rankContain(UUID uuid){
-        return rankData.stream().anyMatch(l->l.getPlayerUniqueId().equals(uuid));
+    /**
+     *
+     * @param type 演算法類型
+     * @param score 標準分
+     * @return 段位
+     */
+    public static String getRank(CalType type, double score) {
+        String[] ranks = PvPRanking.getRanks();
+        switch (type) {
+            case MIN_MAX:
+                return ranks[(int) Math.round(score)];
+            case Z_SCORE:
+                int minScore = (int) -Math.floor((int) (ranks.length / 2));
+                int scoreIndex = ((int) score) - minScore;
+                if (scoreIndex < 0) {
+                    return ranks[0];
+                } else if (scoreIndex > ranks.length) {
+                    return ranks[ranks.length + 1];
+                }
+                return ranks[scoreIndex];
+            default:
+                return null;
+        }
     }
 
     public RankData getRankData(UUID uuid){
@@ -62,9 +86,13 @@ public class RankDataManager {
         });
     }
 
-    public void setRankData(UUID uuid, RankData data) {
-        rankData.removeIf(l -> l.equals(uuid));
-        rankData.add(data);
+    /**
+     *
+     * @param uuid 玩家UUID
+     * @return 玩家是否在快取內
+     */
+    public boolean rankContain(UUID uuid) {
+        return rankData.stream().anyMatch(l -> l.getPlayerUniqueId().equals(uuid));
     }
 
     public void saveRankData(){
@@ -79,7 +107,23 @@ public class RankDataManager {
         return rankData;
     }
 
+    /**
+     * 用於篡改排位存儲數據
+     * @param uuid 玩家UUID
+     * @param data 新的排位存儲數據
+     */
+    public void setRankData(UUID uuid, RankData data) {
+        rankData.removeIf(l -> l.equals(uuid));
+        rankData.add(data);
+    }
 
+    /**
+     * 用於更新玩家數據，
+     * 在數據被修改之後必須使用此方法以更改段位數據。
+     * 若玩家getPlays數據尚未通過特定條件則不會進行任何更新。
+     *
+     * @param uuid 玩家UUID
+     */
     public void update(UUID uuid) {
         PluginManager manager = PvPRanking.getPlugin().getServer().getPluginManager();
         PlayerData data = dataHandler.getPlayerData(uuid);
@@ -107,11 +151,15 @@ public class RankDataManager {
         }
     }
 
+    /**
+     * @param playerUniqueId 玩家UUID
+     * @return 刪除結果
+     */
     public boolean removeRankData(UUID playerUniqueId) {
         return storage.removeRankData(playerUniqueId) && rankData.removeIf(e -> e.equals(playerUniqueId));
     }
 
-    public void updateRankData(){
+    void updateRankData() {
         RankData[] rankData;
         List<PlayerData> datas = new ArrayList<>(dataHandler.getAllPlayerData());
         normal = new Normalization(datas);
@@ -127,25 +175,6 @@ public class RankDataManager {
         }
         this.rankData.clear();
         this.rankData.addAll(Arrays.asList(rankData));
-    }
-
-    public static String getRank(CalType type, double score){
-        String[] ranks = PvPRanking.getRanks();
-        switch (type){
-            case MIN_MAX:
-                return ranks[(int)Math.round(score)];
-            case Z_SCORE:
-                int minScore = (int) -Math.floor((int) (ranks.length / 2));
-                int scoreIndex = ((int) score) - minScore;
-                if (scoreIndex < 0) {
-                    return ranks[0];
-                } else if (scoreIndex > ranks.length) {
-                    return ranks[ranks.length + 1];
-                }
-                return ranks[scoreIndex];
-            default:
-                return null;
-        }
     }
 
 

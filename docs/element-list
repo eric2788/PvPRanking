@@ -1,0 +1,8 @@
+com.ericlam.mc.rankcal
+com.ericlam.mc.rankcal.types
+com.ericlam.mc.rankcal.utils
+com.ericlam.mc.rankcal.utils.math
+com.ericlam.mc.ranking
+com.ericlam.mc.ranking.api
+com.ericlam.mc.ranking.bukkit.event
+com.ericlam.mc.ranking.main

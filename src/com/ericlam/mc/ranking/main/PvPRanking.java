@@ -4,7 +4,7 @@ import com.ericlam.mc.rankcal.RankDataManager;
 import com.ericlam.mc.rankcal.RefresherScheduler;
 import com.ericlam.mc.rankcal.types.CalType;
 import com.ericlam.mc.rankcal.types.Storage;
-import com.ericlam.mc.ranking.api.PlaceHolderHook;
+import com.ericlam.mc.ranking.PlaceHolderHook;
 import com.ericlam.mc.ranking.bukkit.RankingListeners;
 import com.ericlam.mc.ranking.bukkit.commands.RankCommandExecutor;
 import com.ericlam.mc.ranking.bukkit.commands.datahandle.PvPDataCommandExecutor;
@@ -15,6 +15,13 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * PvPRanking 插件
+ * https://github.com/eric2788/PvPRanking
+ *
+ * @author Eric Lam
+ * @version 1.0.0
+ */
 public class PvPRanking extends JavaPlugin {
     private static PvPRanking plugin;
     private static ConfigManager configManager;
@@ -22,14 +29,25 @@ public class PvPRanking extends JavaPlugin {
     private static Storage storage;
     private static String[] ranks;
 
+    /**
+     * @return 本插件的存儲類型 (yaml / mysql)
+     */
     public static Storage getStorage() {
         return storage;
     }
 
+    /**
+     *
+     * @return 本插件實例
+     */
     public static Plugin getPlugin() {
         return plugin;
     }
 
+    /**
+     *
+     * @return 所有段位
+     */
     public static String[] getRanks() {
         return ranks;
     }
@@ -38,6 +56,10 @@ public class PvPRanking extends JavaPlugin {
         return configManager;
     }
 
+    /**
+     *
+     * @return 演算方式
+     */
     public static CalType getCalType() {
         return calType;
     }
@@ -88,6 +110,14 @@ public class PvPRanking extends JavaPlugin {
             RankDataManager.getInstance().getDataHandler().saveAllPlayerData();
     }
 
+    /**
+     *
+     * 請自行 cast 成 其他數值
+     *
+     * @param path config.yml 路徑
+     * @return value 物件
+     *
+     */
     public static Object getConfigData(String path){
         return configManager.getConfig().get(path);
     }
