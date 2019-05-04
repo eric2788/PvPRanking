@@ -1,6 +1,7 @@
 #PvPRanking
 使用 Normalization 作為 排位分段的 插件。
 
+有問題請善用 issue
 ## 一般資訊
 
 ### 版本: 1.13.2
