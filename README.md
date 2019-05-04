@@ -1,4 +1,5 @@
 #PvPRanking
+
 使用 Normalization 作為 排位分段的 插件。
 
 有問題請善用 issue
@@ -30,7 +31,7 @@ PlaceHolderAPI:
 
 
 ## 下載
-[文件目錄下有提供](/blob/master/PvPRanking.jar)
+[文件目錄下有提供](/PvPRanking.jar)
 
 ## API 
 

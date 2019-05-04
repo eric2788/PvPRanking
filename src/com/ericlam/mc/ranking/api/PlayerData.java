@@ -8,13 +8,13 @@ import java.util.UUID;
 public interface PlayerData extends Comparable<PlayerData> {
 
     /**
-     * @return 總積分, 由玩家自行計算
+     * @return 總積分, 自由計算
      */
     double getFinalScores();
 
     /**
      *
-     * @return 遊玩次數/勝數, 由玩家自行計算
+     * @return 遊玩次數/勝數, 自由計算
      */
     int getPlays();
 
