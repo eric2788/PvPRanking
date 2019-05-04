@@ -5,6 +5,9 @@ import com.ericlam.mc.ranking.RankData;
 
 import java.util.UUID;
 
+/**
+ * 透過 使用 此 Class  獲得 所需數據
+ */
 public class PvPRankingAPI {
 
     /**

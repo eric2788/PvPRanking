@@ -7,6 +7,9 @@ import javax.annotation.Nonnull;
 import java.util.TreeSet;
 import java.util.UUID;
 
+/**
+ * 透過 繼承此 接口  掛接自定義的儲存數據的各種方法(包括獲取/儲存/刪除)
+ */
 public abstract class DataHandler {
 
     /**
