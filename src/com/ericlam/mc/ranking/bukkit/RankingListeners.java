@@ -1,8 +1,8 @@
 package com.ericlam.mc.ranking.bukkit;
 
 import com.ericlam.mc.rankcal.RankDataManager;
-import com.ericlam.mc.ranking.DefaultData;
 import com.ericlam.mc.ranking.api.PlayerData;
+import com.ericlam.mc.ranking.defaultdatahandle.DefaultData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

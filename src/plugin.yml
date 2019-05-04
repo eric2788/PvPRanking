@@ -7,7 +7,17 @@ permissions:
   pvprank.admin:
     default: op
     description: modify rank data
+    children:
+      - pvprank.info
+      - pvprank.reset
+      - pvprank.help
+      - pvpdata.info
+      - pvpdata.reset
+
 commands:
   pvprank:
     description: pvp rank command
     aliases: [rank, pvpranking]
+  pvpdata:
+    description: pvp data command
+    aliases: [data, pvprankingdata]

@@ -1,4 +1,4 @@
-package com.ericlam.mc.ranking;
+package com.ericlam.mc.ranking.defaultdatahandle;
 
 import com.ericlam.mc.rankcal.RankDataManager;
 import com.ericlam.mc.ranking.api.PlayerData;

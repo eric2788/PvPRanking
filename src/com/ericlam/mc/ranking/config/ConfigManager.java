@@ -17,7 +17,7 @@ public class ConfigManager {
         File dbFile = new File(plugin.getDataFolder(),"database.yml");
         File rankFile = new File(plugin.getDataFolder(),"rank.yml");
         for (File file : List.of(cfFile, dbFile, rankFile)) {
-            if (!file.exists()) plugin.saveResource(cfFile.getName(),true);
+            if (!file.exists()) plugin.saveResource(file.getName(), true);
         }
         config = YamlConfiguration.loadConfiguration(cfFile);
         database = YamlConfiguration.loadConfiguration(dbFile);

@@ -1,4 +1,4 @@
-package com.ericlam.mc.ranking;
+package com.ericlam.mc.ranking.defaultdatahandle;
 
 import com.ericlam.mc.ranking.main.PvPRanking;
 import com.ericlam.mc.ranking.sql.SQLManager;
@@ -18,6 +18,10 @@ import java.sql.SQLException;
 import java.util.TreeSet;
 import java.util.UUID;
 
+/**
+ * me fucking lazy, so i dont fucking use interface to split data storage method here
+ * 別吐糟我為啥不用 Interface 分開 yaml 和 mysql 存儲, 因為我懶哈哈哈ww
+ */
 public class DefaultDataManager {
     private TreeSet<DefaultData> datas = new TreeSet<>();
     private static DefaultDataManager defaultDataManager;
@@ -41,7 +45,7 @@ public class DefaultDataManager {
         datas.add(data);
     }
 
-    public DefaultData findData(UUID uuid){
+    DefaultData findData(UUID uuid) {
         return datas.stream().filter(d->d.getPlayerUniqueId().equals(uuid)).findAny().orElseGet(()->{
             DefaultData data = getData(uuid);
             datas.add(data);
@@ -50,21 +54,32 @@ public class DefaultDataManager {
     }
 
     public TreeSet<DefaultData> getDatas() {
-       return datas;
+        return datas;
     }
 
-    public void saveData() {
+
+    boolean removeData(UUID uuid) {
+        switch (PvPRanking.getStorage()) {
+            case MYSQL:
+                return removeSQLData(uuid);
+            case YAML:
+            default:
+                return removeYamlData(uuid);
+        }
+    }
+
+    void saveData() {
         switch (PvPRanking.getStorage()){
             case MYSQL:
                 saveSQLData();
                 break;
             case YAML:
-                default:
+            default:
                 saveYamlData();
         }
     }
 
-    public void saveData(UUID uuid) {
+    void saveData(UUID uuid) {
         switch (PvPRanking.getStorage()) {
             case MYSQL:
                 saveSQLData(uuid);
@@ -75,17 +90,17 @@ public class DefaultDataManager {
         }
     }
 
-    public DefaultData getData(UUID uuid){
+    private DefaultData getData(UUID uuid) {
         switch (PvPRanking.getStorage()){
             case MYSQL:
                 return getSQLData(uuid);
             case YAML:
-                default:
-                 return getYamlData(uuid);
+            default:
+                return getYamlData(uuid);
         }
     }
 
-    public TreeSet<DefaultData> getAllData() {
+    TreeSet<DefaultData> getAllData() {
         switch (PvPRanking.getStorage()) {
             case MYSQL:
                 return getSQLData();
@@ -93,6 +108,28 @@ public class DefaultDataManager {
             default:
                 return getYamlData();
         }
+    }
+
+
+    private boolean removeYamlData(UUID uuid) {
+        File folder = new File(plugin.getDataFolder(), "Default_Data");
+        File user = new File(folder, uuid.toString() + ".yml");
+        if (!user.exists()) return false;
+        return user.delete();
+    }
+
+    private boolean removeSQLData(UUID uuid) {
+        try (Connection connection = SQLManager.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS `DefaultData` (`UUID` VARCHAR(40) NOT NULL , `Kills` INT NOT NULL , `Deaths` INT NOT NULL )");
+             PreparedStatement delete = connection.prepareStatement("DELETE FROM `DefaultData` WHERE `UUID` = ?")) {
+            statement.execute();
+            delete.setString(1, uuid.toString());
+            delete.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private void saveSQLData(){
@@ -148,7 +185,7 @@ public class DefaultDataManager {
         File yml = new File(folder, data.getPlayerUniqueId().toString() + ".yml");
         FileConfiguration user = new YamlConfiguration();
         user.set("kills", data.getKills());
-        user.get("deaths", data.getDeaths());
+        user.set("deaths", data.getDeaths());
         try {
             user.save(yml);
         } catch (IOException e) {
@@ -157,7 +194,7 @@ public class DefaultDataManager {
     }
 
     private DefaultData getSQLData(UUID uuid){
-        try(Connection connection = SQLManager.getInstance().getConnection();PreparedStatement statement = connection.prepareStatement("SELECT * FROM `DefaultData` WHERE `UUID`=?")){
+        try(Connection connection = SQLManager.getInstance().getConnection(); PreparedStatement statement = connection.prepareStatement("SELECT * FROM `DefaultData` WHERE `UUID`=?")){
             statement.setString(1,uuid.toString());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()){

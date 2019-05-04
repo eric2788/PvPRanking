@@ -4,11 +4,14 @@ import com.ericlam.mc.rankcal.RankDataManager;
 import com.ericlam.mc.rankcal.RefresherScheduler;
 import com.ericlam.mc.rankcal.types.CalType;
 import com.ericlam.mc.rankcal.types.Storage;
-import com.ericlam.mc.ranking.DefaultDataHandler;
 import com.ericlam.mc.ranking.api.PlaceHolderHook;
 import com.ericlam.mc.ranking.bukkit.RankingListeners;
 import com.ericlam.mc.ranking.bukkit.commands.RankCommandExecutor;
+import com.ericlam.mc.ranking.bukkit.commands.datahandle.PvPDataCommandExecutor;
 import com.ericlam.mc.ranking.config.ConfigManager;
+import com.ericlam.mc.ranking.defaultdatahandle.DefaultDataHandler;
+import org.bukkit.ChatColor;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -62,13 +65,21 @@ public class PvPRanking extends JavaPlugin {
         if (RankDataManager.getInstance().getDataHandler() == null) new DefaultDataHandler().register();
         getServer().getPluginManager().registerEvents(new RankingListeners(this),this);
         getCommand("pvprank").setExecutor(new RankCommandExecutor(this));
+        getCommand("pvpdata").setExecutor(new PvPDataCommandExecutor(this));
 
-        if ((boolean) getConfigData("show-info-only")) new RefresherScheduler(this);
+        if (!(boolean) getConfigData("show-info-only")) new RefresherScheduler(this);
 
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             getLogger().info("找到 PlaceHolderAPI 插件！ 正在掛接...");
             new PlaceHolderHook(this).register();
         }
+        ConsoleCommandSender sender = getServer().getConsoleSender();
+        sender.sendMessage(ChatColor.AQUA + "=================================");
+        sender.sendMessage(ChatColor.GREEN + "採用演算法： " + ChatColor.YELLOW + calType.toString());
+        sender.sendMessage(ChatColor.GREEN + "儲存方式: " + ChatColor.YELLOW + storage.toString());
+        sender.sendMessage(ChatColor.GREEN + "排位區段數: " + ChatColor.YELLOW + ranks.length);
+        sender.sendMessage(ChatColor.AQUA + "=================================");
+        getLogger().info("PvPRanking 插件已成功啟用。");
     }
 
     @Override
