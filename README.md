@@ -35,11 +35,11 @@ PlaceHolderAPI:
 
 ## API 
 
-[查看JavaDocs文件](https://eric2788.github.io/PvPRanking)
+[查看JavaDocs文件](https://free-mc-plugins.github.io/PvPRanking)
 
-[查看JavaDocs文件API部分](https://eric2788.github.io/PvPRanking/com/ericlam/mc/ranking/api/package-summary.html)
+[查看JavaDocs文件API部分](https://free-mc-plugins.github.io/PvPRanking/com/ericlam/mc/ranking/api/package-summary.html)
 
-[查看JavaDocs文件事件部分](https://eric2788.github.io/PvPRanking/com/ericlam/mc/ranking/bukkit/event/package-summary.html)
+[查看JavaDocs文件事件部分](https://free-mc-plugins.github.io/PvPRanking/com/ericlam/mc/ranking/bukkit/event/package-summary.html)
 
 ### 基本掛接
 - 透過 implements PlayerData 掛接自定義的儲存數據
