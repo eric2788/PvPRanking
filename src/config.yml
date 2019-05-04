@@ -14,3 +14,6 @@ info-message:
   - "&b積分: &e<score>"
   - "&b標準分: &e<n-score>"
   - "&b戰數: &e<plays>"
+
+# 顯示資訊用，並不會進行排位更新 (適用於小遊戲房間)
+show-info-only: false

@@ -5,6 +5,7 @@ import com.ericlam.mc.rankcal.RefresherScheduler;
 import com.ericlam.mc.rankcal.types.CalType;
 import com.ericlam.mc.rankcal.types.Storage;
 import com.ericlam.mc.ranking.DefaultDataHandler;
+import com.ericlam.mc.ranking.api.PlaceHolderHook;
 import com.ericlam.mc.ranking.bukkit.RankingListeners;
 import com.ericlam.mc.ranking.bukkit.commands.RankCommandExecutor;
 import com.ericlam.mc.ranking.config.ConfigManager;
@@ -61,7 +62,13 @@ public class PvPRanking extends JavaPlugin {
         if (RankDataManager.getInstance().getDataHandler() == null) new DefaultDataHandler().register();
         getServer().getPluginManager().registerEvents(new RankingListeners(this),this);
         getCommand("pvprank").setExecutor(new RankCommandExecutor(this));
-        new RefresherScheduler(this);
+
+        if ((boolean) getConfigData("show-info-only")) new RefresherScheduler(this);
+
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            getLogger().info("找到 PlaceHolderAPI 插件！ 正在掛接...");
+            new PlaceHolderHook(this).register();
+        }
     }
 
     @Override

@@ -12,6 +12,7 @@ import com.ericlam.mc.ranking.main.PvPRanking;
 import com.ericlam.mc.ranking.storage.DataStorage;
 import com.ericlam.mc.ranking.storage.MySQLStorage;
 import com.ericlam.mc.ranking.storage.YamlStorage;
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -45,6 +46,7 @@ public class RankDataManager {
     }
 
     public void registerHandler(DataHandler handler){
+        Validate.notNull(handler.getPlayerData(Bukkit.getOfflinePlayers()[0].getUniqueId()), "getPlayerData 方法不能返回 null");
         this.dataHandler = handler;
     }
 
