@@ -1,4 +1,4 @@
-#PvPRanking
+# PvPRanking
 
 使用 Normalization 作為 排位分段的 插件。
 
