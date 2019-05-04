@@ -22,7 +22,12 @@ PlaceHolderAPI:
  - /pvpdata <info | reset> <玩家> - 查看/重設玩家資料
 
 ### 權限
- 自行看 plugin.yml
+ - pvprank.info - 查看排位資料
+ - pvprank.reset - 重設排位資料
+ - pvprank.help - 查看幫助
+ - pvpdata.info - 查看玩家資料
+ - pvpdata.reset - 重設玩家資料
+ - pvprank.admin - 以上所有
 
 ## 一般運作
 透過獲取所有玩家數據內的積分，并進行標準差和平均計算，然後透過玩家與平均分的差距獲取排位數據。
