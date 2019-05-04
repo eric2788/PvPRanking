@@ -1,6 +1,7 @@
 package com.ericlam.mc.ranking.api;
 
 import com.ericlam.mc.rankcal.RankDataManager;
+import com.ericlam.mc.ranking.RankData;
 
 import java.util.UUID;
 
@@ -20,5 +21,13 @@ public class PvPRankingAPI {
 
     public static int getPlays(UUID uuid) {
         return RankDataManager.getInstance().getRankData(uuid).getPlays();
+    }
+
+    public static DataHandler getDataHandler() {
+        return RankDataManager.getInstance().getDataHandler();
+    }
+
+    public static RankData getRankData(UUID uuid) {
+        return RankDataManager.getInstance().getRankData(uuid);
     }
 }

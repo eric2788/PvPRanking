@@ -73,8 +73,8 @@ public class PvPRanking extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        RankDataManager.getInstance().saveRankData();
-        RankDataManager.getInstance().getDataHandler().saveAllPlayerData();
+        if ((boolean) getConfigData("handle-data-save"))
+            RankDataManager.getInstance().getDataHandler().saveAllPlayerData();
     }
 
     public static Object getConfigData(String path){

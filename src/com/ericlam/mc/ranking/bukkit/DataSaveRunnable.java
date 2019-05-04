@@ -1,6 +1,7 @@
 package com.ericlam.mc.ranking.bukkit;
 
 import com.ericlam.mc.rankcal.RankDataManager;
+import com.ericlam.mc.ranking.main.PvPRanking;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
@@ -15,6 +16,7 @@ public class DataSaveRunnable extends BukkitRunnable {
 
     @Override
     public void run() {
-        RankDataManager.getInstance().getDataHandler().savePlayerData(uuid);
+        if ((boolean) PvPRanking.getConfigData("handle-data-save"))
+            RankDataManager.getInstance().getDataHandler().savePlayerData(uuid);
     }
 }
