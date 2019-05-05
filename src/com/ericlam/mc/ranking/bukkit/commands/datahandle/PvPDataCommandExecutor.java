@@ -41,6 +41,7 @@ public class PvPDataCommandExecutor implements CommandExecutor, TabCompleter {
 
         if (!commandmap.containsKey(method)) {
             commandSender.sendMessage("§c找不到此指令。");
+            return false;
         }
 
         if (!commandSender.hasPermission("pvpdata." + method)) {

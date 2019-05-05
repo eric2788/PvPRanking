@@ -7,6 +7,7 @@ import com.ericlam.mc.ranking.api.DataHandler;
 import com.ericlam.mc.ranking.api.PlayerData;
 import com.ericlam.mc.ranking.bukkit.event.NScoreUpdateEvent;
 import com.ericlam.mc.ranking.bukkit.event.RankDownEvent;
+import com.ericlam.mc.ranking.bukkit.event.RankEvent;
 import com.ericlam.mc.ranking.bukkit.event.RankUpEvent;
 import com.ericlam.mc.ranking.main.PvPRanking;
 import com.ericlam.mc.ranking.storage.DataStorage;
@@ -147,7 +148,11 @@ public class RankDataManager {
         if (!oldRank.getRank().equals(newRank.getRank())) {
             Player player = Bukkit.getPlayer(uuid);
             if (player == null || !player.isOnline()) return;
-            manager.callEvent(newRank.getnScores() > oldRank.getnScores() ? new RankUpEvent(player, oldRank, newRank) : new RankDownEvent(player, oldRank, newRank));
+            RankEvent event = newRank.getnScores() > oldRank.getnScores() ? new RankUpEvent(player, oldRank, newRank) : new RankDownEvent(player, oldRank, newRank);
+            manager.callEvent(event);
+            if (event.isCancelled()) return;
+            event.getPlayer().sendMessage("§b你的段位資料已更新。");
+            if (event instanceof RankUpEvent) event.getPlayer().sendTitle("", "§k§a||§e 段位更新 §k§a||", 20, 40, 20);
         }
     }
 

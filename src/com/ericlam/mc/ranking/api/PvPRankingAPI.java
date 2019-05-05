@@ -63,4 +63,15 @@ public class PvPRankingAPI {
     public static RankData getRankData(UUID uuid) {
         return RankDataManager.getInstance().getRankData(uuid);
     }
+
+    /**
+     * 用於更新玩家數據，
+     * 在數據被修改之後必須使用此方法以更改段位數據。
+     * 若玩家getPlays數據尚未通過特定條件則不會進行任何更新。
+     *
+     * @param uuid 玩家UUID
+     */
+    public static void update(UUID uuid) {
+        RankDataManager.getInstance().update(uuid);
+    }
 }

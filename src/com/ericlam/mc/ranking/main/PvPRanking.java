@@ -17,10 +17,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * PvPRanking 插件
- * https://github.com/eric2788/PvPRanking
+ *  (https://github.com/eric2788/PvPRanking)
  *
  * @author Eric Lam
- * @version 1.0.0
+ * @version 1.1.0
  */
 public class PvPRanking extends JavaPlugin {
     private static PvPRanking plugin;

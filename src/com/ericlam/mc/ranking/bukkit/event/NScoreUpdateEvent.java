@@ -6,6 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
+/**
+ * 標準分更新時觸發
+ */
 public class NScoreUpdateEvent extends PlayerEvent {
 
     private PlayerData playerData;

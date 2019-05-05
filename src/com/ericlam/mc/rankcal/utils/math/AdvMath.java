@@ -47,7 +47,7 @@ public class AdvMath {
      *
      * @param f 取至位數
      * @param num 數值
-     * @return 向下取值後的數值
+     * @return 向上取值後的數值
      */
     public static double roundCil(int f,double num){
         BigDecimal decimal = new BigDecimal(num);
@@ -58,7 +58,7 @@ public class AdvMath {
      *
      * @param f 取至位數
      * @param num 數值
-     * @return 向上取值後的數值
+     * @return 向下取值後的數值
      */
     public static double roundFlr(int f,double num){
         BigDecimal decimal = new BigDecimal(num);
