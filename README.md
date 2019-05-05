@@ -39,6 +39,14 @@ PlaceHolderAPI:
 ## 下載
 [文件目錄下有提供](/PvPRanking.jar)
 
+
+##使用
+扔進去插件資料夾即可。但在這裏建議伺服器需要平均達到一定的人數，否則計算可能出現異常。
+
+目前一般升段降段都會有通知，但插件師可以取消事件并採用新的通知方式。
+
+至於聊天格式顯示插件，如果你是服主，請尋找有支援PlaceholderAPI的聊天格式插件并是用其變數；若果你是製作聊天格式插件的插件師，則可使用本插件的 API 提取數據。
+
 ## API 
 
 [查看JavaDocs文件](https://free-mc-plugins.github.io/PvPRanking)
