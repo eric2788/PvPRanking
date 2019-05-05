@@ -51,4 +51,4 @@ PlaceHolderAPI:
 - 透過 implements PlayerData 掛接自定義的儲存數據
 - 透過 extends DataHandler 掛接自定義的儲存數據的各種方法(包括獲取/儲存/刪除)
 - 透過 使用 PvPRankingAPI 獲得 所需數據
-- 目前任何數值修改後一律需要使用 RankDataManager.getInstance().update(UUID uuid) 作為強制更新段位數據而作即時更新。
+- 目前任何數值修改後一律需要使用 PvPRankingAPI.update(UUID uuid) 作為強制更新段位數據而作即時更新。
