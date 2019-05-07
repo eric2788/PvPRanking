@@ -9,6 +9,8 @@ import com.ericlam.mc.ranking.bukkit.event.NScoreUpdateEvent;
 import com.ericlam.mc.ranking.bukkit.event.RankDownEvent;
 import com.ericlam.mc.ranking.bukkit.event.RankEvent;
 import com.ericlam.mc.ranking.bukkit.event.RankUpEvent;
+import com.ericlam.mc.ranking.defaultdatahandle.DefaultData;
+import com.ericlam.mc.ranking.defaultdatahandle.DefaultDataHandler;
 import com.ericlam.mc.ranking.main.PvPRanking;
 import com.ericlam.mc.ranking.storage.DataStorage;
 import com.ericlam.mc.ranking.storage.MySQLStorage;
@@ -49,12 +51,6 @@ public class RankDataManager {
         //rankData.addAll(storage.loadRankData());
     }
 
-    public void setHandler(DataHandler handler) {
-        Validate.notNull(handler.getPlayerData(Bukkit.getOfflinePlayers()[0].getUniqueId()), "getPlayerData 方法不能返回 null");
-        this.dataHandler = handler;
-        PvPRanking.getPlugin().getLogger().info("成功註冊 " + handler.getClass().getSimpleName() + " 作為數據套接。");
-    }
-
     /**
      *
      * @param type 演算法類型
@@ -72,12 +68,22 @@ public class RankDataManager {
                 if (scoreIndex < 0) {
                     return ranks[0];
                 } else if (scoreIndex > ranks.length) {
-                    return ranks[ranks.length + 1];
+                    return ranks[ranks.length - 1];
                 }
                 return ranks[scoreIndex];
             default:
                 return null;
         }
+    }
+
+    public void setHandler(DataHandler handler) {
+        PlayerData data = handler.getPlayerData(Bukkit.getOfflinePlayers()[0].getUniqueId());
+        Validate.notNull(data, "getPlayerData 方法不能返回 null");
+        this.dataHandler = handler;
+        if (handler instanceof DefaultDataHandler) return;
+        PvPRanking.getPlugin().getLogger().info("成功註冊 " + handler.getClass().getSimpleName() + " 作為數據套接。");
+        if (data instanceof DefaultData) return;
+        PvPRanking.getPlugin().getLogger().info("成功註冊 " + data.getClass().getSimpleName() + " 作為存儲數據。");
     }
 
     public RankData getRankData(UUID uuid){
