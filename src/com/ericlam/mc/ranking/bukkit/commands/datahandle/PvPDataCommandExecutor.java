@@ -48,7 +48,9 @@ public class PvPDataCommandExecutor implements CommandExecutor, TabCompleter {
             commandSender.sendMessage("§c你沒有權限。");
             return false;
         }
-        commandmap.get(method).setSender(commandSender).setPlayer(player).runTaskAsynchronously(plugin);
+        CommandRunnable runnable = commandmap.get(method).setSender(commandSender).setPlayer(player);
+        if (!runnable.isCancelled()) runnable.cancel();
+        runnable.runTaskAsynchronously(plugin);
         return true;
     }
 
