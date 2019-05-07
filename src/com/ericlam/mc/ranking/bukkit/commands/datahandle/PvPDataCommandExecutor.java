@@ -2,6 +2,10 @@ package com.ericlam.mc.ranking.bukkit.commands.datahandle;
 
 import com.ericlam.mc.ranking.bukkit.commands.RankCommandExecutor;
 import com.ericlam.mc.ranking.main.PvPRanking;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,7 +31,13 @@ public class PvPDataCommandExecutor implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+        ComponentBuilder author = new ComponentBuilder("§7插件作者: §m§bEric Lam").event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/eric2788")).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§b打開 Github 連結")));
+        ComponentBuilder source = new ComponentBuilder("§d>> 插件原始碼").event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/eric2788/PvPRanking")).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§b打開 Github 連結")));
         if (strings.length < 2) {
+            commandSender.sendMessage("§ePvPRanking §7- §e版本 §a" + PvPRanking.getPlugin().getDescription().getVersion());
+            commandSender.spigot().sendMessage(author.create());
+            commandSender.spigot().sendMessage(source.create());
+            if (!commandSender.hasPermission("pvprank.help")) return true;
             commandSender.sendMessage("§e幫助:");
             commandSender.sendMessage("§a/pvpdata info <player> §7- 查看玩家的排位");
             commandSender.sendMessage("§a/pvpdata reset <player> §7- 重設玩家的排位");
