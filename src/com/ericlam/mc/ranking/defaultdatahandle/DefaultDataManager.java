@@ -53,6 +53,11 @@ public class DefaultDataManager {
         });
     }
 
+    public boolean setData(DefaultData data) {
+        datas.removeIf(d -> d.getPlayerUniqueId().equals(data.getPlayerUniqueId()));
+        return datas.add(data);
+    }
+
     public TreeSet<DefaultData> getDatas() {
         return datas;
     }
