@@ -49,9 +49,10 @@ public class RankDataManager {
         //rankData.addAll(storage.loadRankData());
     }
 
-    public void registerHandler(DataHandler handler){
+    public void setHandler(DataHandler handler) {
         Validate.notNull(handler.getPlayerData(Bukkit.getOfflinePlayers()[0].getUniqueId()), "getPlayerData 方法不能返回 null");
         this.dataHandler = handler;
+        PvPRanking.getPlugin().getLogger().info("成功註冊 " + handler.getClass().getSimpleName() + " 作為數據套接。");
     }
 
     /**

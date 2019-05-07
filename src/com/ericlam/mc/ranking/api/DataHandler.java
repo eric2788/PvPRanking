@@ -62,6 +62,6 @@ public abstract class DataHandler {
      * 註冊 此套接
      */
     public final void register(){
-        RankDataManager.getInstance().registerHandler(this);
+        RankDataManager.getInstance().setHandler(this);
     }
 }
