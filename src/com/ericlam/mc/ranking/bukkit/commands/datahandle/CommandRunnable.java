@@ -6,6 +6,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 abstract class CommandRunnable extends BukkitRunnable {
 
+    private boolean run = false;
+
     OfflinePlayer player;
     CommandSender sender;
 
@@ -17,5 +19,20 @@ abstract class CommandRunnable extends BukkitRunnable {
     CommandRunnable setSender(CommandSender sender) {
         this.sender = sender;
         return this;
+    }
+
+    public boolean isRun() {
+        return run;
+    }
+
+    protected void setRun(boolean run) {
+        this.run = run;
+    }
+
+    @Override
+    public synchronized void cancel() throws IllegalStateException {
+        if (!run) return;
+        super.cancel();
+        this.run = false;
     }
 }
