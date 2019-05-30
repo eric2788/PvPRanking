@@ -23,7 +23,7 @@ public class ConfigManager {
         config = YamlConfiguration.loadConfiguration(cfFile);
         database = YamlConfiguration.loadConfiguration(dbFile);
         rank = YamlConfiguration.loadConfiguration(rankFile);
-        config.addDefault("default-calculate-format", "<kills> * 50 - <death> * 20");
+        config.addDefault("default-calculate-format", "<kills> * 50 - <deaths> * 20");
         ;
         try {
             config.save(cfFile);

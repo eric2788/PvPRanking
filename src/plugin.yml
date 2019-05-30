@@ -1,6 +1,6 @@
 name: PvPRanking
 main: com.ericlam.mc.ranking.main.PvPRanking
-version: 1.1.9
+version: 1.2.0
 author: Eric Lam
 softdepend: [PlaceholderAPI]
 permissions:

@@ -22,4 +22,4 @@ show-info-only: false
 handle-data-save: true
 
 # 默認排位積分計算值
-default-calculate-format: "<kills> * 50 - <death> * 20"
+default-calculate-format: "<kills> * 50 - <deaths> * 20"
