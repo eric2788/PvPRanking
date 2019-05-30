@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class ConfigManager {
@@ -22,6 +23,13 @@ public class ConfigManager {
         config = YamlConfiguration.loadConfiguration(cfFile);
         database = YamlConfiguration.loadConfiguration(dbFile);
         rank = YamlConfiguration.loadConfiguration(rankFile);
+        config.addDefault("default-calculate-format", "<kills> * 50 - <death> * 20");
+        ;
+        try {
+            config.save(cfFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public FileConfiguration getDatabase() {
@@ -34,5 +42,9 @@ public class ConfigManager {
 
     public FileConfiguration getRank() {
         return rank;
+    }
+
+    public String getCalFormat() {
+        return config.getString("default-calculate-format");
     }
 }

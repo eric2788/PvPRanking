@@ -20,3 +20,6 @@ show-info-only: false
 
 # 一旦啟用，將由本插件主導玩家數據儲存。 儲存時間為 關服時 及 玩家離開時。( API 專用，若果你不是插件師，最好不要碰這個)
 handle-data-save: true
+
+# 默認排位積分計算值
+default-calculate-format: "<kills> * 50 - <death> * 20"

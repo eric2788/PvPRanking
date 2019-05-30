@@ -17,8 +17,8 @@ public class YamlStorage implements DataStorage {
     private File folder;
 
     public YamlStorage() {
-        this.folder = new File(plugin.getDataFolder(),"Ranking_Data");
-        if (!folder.exists()) folder.mkdir();
+        this.folder = new File(plugin.getDataFolder(), "Ranking_Data"); //定位 Ranking_Data 資料夾
+        if (!folder.exists()) folder.mkdir(); //若不存在, 則創建一個 (mkdir 為創建資料夾, createFile 為 創建文件)
     }
 
     @Override
@@ -26,11 +26,11 @@ public class YamlStorage implements DataStorage {
         for (RankData d : data) {
             File yml = new File(folder,d.getPlayerUniqueId().toString()+".yml");
             FileConfiguration user = new YamlConfiguration();
-            user.set("score",d.getFinalScores());
+            user.set("score", d.getFinalScores()); //為文件設置路徑及數值
             user.set("n-score",d.getnScores());
             user.set("rank",d.getRank());
             try {
-                user.save(yml);
+                user.save(yml); //保存文件，若不存在則創建一個
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -40,10 +40,10 @@ public class YamlStorage implements DataStorage {
     @Override
     public RankData getRankData(UUID playerUniqueId) {
         PlayerData data = RankDataManager.getInstance().getDataHandler().getPlayerData(playerUniqueId);
-        File file = new File(folder,playerUniqueId.toString()+".yml");
+        File file = new File(folder, playerUniqueId.toString() + ".yml");//定位文件位置
         if (!file.exists()) return new RankData(data, "未定位", 0.0);
-        FileConfiguration user = YamlConfiguration.loadConfiguration(file);
-        double nScore = user.getDouble("n-score");
+        FileConfiguration user = YamlConfiguration.loadConfiguration(file);//把定位文件加載為 yaml config
+        double nScore = user.getDouble("n-score"); //透過路徑獲取數據
         String rank = user.getString("rank");
         return new RankData(data,rank,nScore);
     }
@@ -61,7 +61,7 @@ public class YamlStorage implements DataStorage {
         File[] files = folder.listFiles();
         if (files == null) return rankData;
         for (File file : files) {
-            if (!FilenameUtils.getExtension(file.getPath()).equals("yml")) continue;
+            if (!FilenameUtils.getExtension(file.getPath()).equals("yml")) continue; //獲取文件格式
             UUID uuid = UUID.fromString(FilenameUtils.getBaseName(file.getPath()));
             RankData rank = getRankData(uuid);
             if (rank == null) continue;
