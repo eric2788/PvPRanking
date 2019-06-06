@@ -1,25 +1,25 @@
-# 目前支援兩種演算法: "Z_SCORE" , "MIN_MAX"
+# support two different method: "Z_SCORE" , "MIN_MAX"
 ran-cal-method: Z_SCORE
 
-# 玩家的戰數需要達到特定才會有排位
+# require played times to have rank
 require-plays: 20
 
-# 重設時間 (24 小時制)
+# reset time (24 hours)
 update-time: 00:00
 
-# 玩家排位資訊訊息顯示
+# ranking data showing format
 info-message:
-  - "&b玩家: &e<name>"
-  - "&b段位: &e<rank>"
-  - "&b積分: &e<score>"
-  - "&b標準分: &e<n-score>"
-  - "&b戰數: &e<plays>"
+  - "&bplayer: &e<name>"
+  - "&brank: &e<rank>"
+  - "&bscores: &e<score>"
+  - "&bn-scores: &e<n-score>"
+  - "&bplayed: &e<plays>"
 
-# 顯示資訊用，並不會進行排位更新 (適用於小遊戲房間)
+# whether to make it only for show info but not calculate
 show-info-only: false
 
-# 一旦啟用，將由本插件主導玩家數據儲存。 儲存時間為 關服時 及 玩家離開時。( API 專用，若果你不是插件師，最好不要碰這個)
+# if disabled, this plugin will not handle any save
 handle-data-save: true
 
-# 默認排位積分計算值
+# default calculated format
 default-calculate-format: "<kills> * 50 - <deaths> * 20"

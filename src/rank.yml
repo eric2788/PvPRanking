@@ -1,5 +1,5 @@
-# 最上 = 最低
-# 最下 = 最高
+# upside = lowest
+# downside = highest
 ranks:
   - "Silver I"
   - "Silver II"

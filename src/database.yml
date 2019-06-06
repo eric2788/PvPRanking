@@ -1,4 +1,4 @@
-# 支援 yaml  和 mysql
+# yaml and mysql
 storage: yaml
 
 mysql:
