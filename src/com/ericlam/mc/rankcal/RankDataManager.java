@@ -55,7 +55,7 @@ public class RankDataManager {
      *
      * @param type calculation type
      * @param score final score
-     * @return 段位
+     * @return rank
      */
     public static String getRank(CalType type, double score) {
         String[] ranks = PvPRanking.getRanks();
@@ -81,9 +81,9 @@ public class RankDataManager {
         Validate.notNull(data, "getPlayerData 方法不能返回 null");
         this.dataHandler = handler;
         if (handler instanceof DefaultDataHandler) return;
-        PvPRanking.getPlugin().getLogger().info("成功註冊 " + handler.getClass().getSimpleName() + " 作為數據套接。");
+        PvPRanking.getPlugin().getLogger().info("Successfully registered " + handler.getClass().getSimpleName() + " as handler。");
         if (data instanceof DefaultData) return;
-        PvPRanking.getPlugin().getLogger().info("成功註冊 " + data.getClass().getSimpleName() + " 作為存儲數據。");
+        PvPRanking.getPlugin().getLogger().info("Successfully registered " + data.getClass().getSimpleName() + " as data");
     }
 
     public RankData getRankData(UUID uuid){
@@ -158,14 +158,14 @@ public class RankDataManager {
             RankEvent event = newRank.getnScores() > oldRank.getnScores() ? new RankUpEvent(player, oldRank, newRank) : new RankDownEvent(player, oldRank, newRank);
             manager.callEvent(event);
             if (event.isCancelled()) return;
-            event.getPlayer().sendMessage("§b你的段位資料已更新。");
-            if (event instanceof RankUpEvent) event.getPlayer().sendTitle("", "§k§a||§e 段位更新 §k§a||", 20, 40, 20);
+            event.getPlayer().sendMessage("§bRank data has been updated。");
+            if (event instanceof RankUpEvent) event.getPlayer().sendTitle("", "§k§a||§e RANK UP §k§a||", 20, 40, 20);
         }
     }
 
     /**
-     * @param playerUniqueId 玩家UUID
-     * @return 刪除結果
+     * @param playerUniqueId player UUID
+     * @return delete result
      */
     public boolean removeRankData(UUID playerUniqueId) {
         return storage.removeRankData(playerUniqueId) && rankData.removeIf(e -> e.equals(playerUniqueId));
