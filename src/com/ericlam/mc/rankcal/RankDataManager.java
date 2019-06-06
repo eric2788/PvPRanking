@@ -78,7 +78,7 @@ public class RankDataManager {
 
     public void setHandler(DataHandler handler) {
         PlayerData data = handler.getPlayerData(Bukkit.getOfflinePlayers()[0].getUniqueId());
-        Validate.notNull(data, "getPlayerData 方法不能返回 null");
+        Validate.notNull(data, "getPlayerData can't return null");
         this.dataHandler = handler;
         if (handler instanceof DefaultDataHandler) return;
         PvPRanking.getPlugin().getLogger().info("Successfully registered " + handler.getClass().getSimpleName() + " as handler。");

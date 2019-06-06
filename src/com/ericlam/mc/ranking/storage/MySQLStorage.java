@@ -58,7 +58,7 @@ public class MySQLStorage implements DataStorage {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new RankData(data, "未定位", 0.0);
+        return new RankData(data, "UnRanked", 0.0);
     }
 
     @Override

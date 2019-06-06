@@ -41,7 +41,7 @@ public class YamlStorage implements DataStorage {
     public RankData getRankData(UUID playerUniqueId) {
         PlayerData data = RankDataManager.getInstance().getDataHandler().getPlayerData(playerUniqueId);
         File file = new File(folder, playerUniqueId.toString() + ".yml");//定位文件位置
-        if (!file.exists()) return new RankData(data, "未定位", 0.0);
+        if (!file.exists()) return new RankData(data, "UnRanked", 0.0);
         FileConfiguration user = YamlConfiguration.loadConfiguration(file);//把定位文件加載為 yaml config
         double nScore = user.getDouble("n-score"); //透過路徑獲取數據
         String rank = user.getString("rank");
