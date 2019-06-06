@@ -11,8 +11,8 @@ public class AdvMath {
     }
 
     /**
-     * @param num 數字
-     * @return 數字長度
+     * @param num num
+     * @return number length
      */
     public static int getNumLenght(long num){
         num = num>0?num:-num;
@@ -25,18 +25,19 @@ public class AdvMath {
 
     /**
      *
-     * @param num 數字
-     * @return 數次長度
+     * @param num num
+     * @return number length
      */
     public static int getNumLenght(double num){
         return getNumLenght((long)num);
     }
 
     /**
+     * when over 0.5. round up, else round down
      *
-     * @param f 取至位數
-     * @param num 數值
-     * @return 四捨五入後的數值
+     * @param f round length
+     * @param num value
+     * @return rounded value
      */
     public static double round(int f,double num){
         BigDecimal decimal = new BigDecimal(num);
@@ -44,10 +45,11 @@ public class AdvMath {
     }
 
     /**
+     * round up
      *
-     * @param f 取至位數
-     * @param num 數值
-     * @return 向上取值後的數值
+     * @param f round number
+     * @param num value
+     * @return rounded value
      */
     public static double roundCil(int f,double num){
         BigDecimal decimal = new BigDecimal(num);
@@ -55,10 +57,11 @@ public class AdvMath {
     }
 
     /**
+     * round down
      *
-     * @param f 取至位數
-     * @param num 數值
-     * @return 向下取值後的數值
+     * @param f round number
+     * @param num value
+     * @return rounded value
      */
     public static double roundFlr(int f,double num){
         BigDecimal decimal = new BigDecimal(num);
@@ -67,9 +70,9 @@ public class AdvMath {
 
     /**
      *
-     * @param row Set  (列）
-     * @param contain subSet  (子列)
-     * @return 主列是否含有子列
+     * @param row Set
+     * @param contain SubSet
+     * @return Set contain subset
      */
     public static boolean contain(double[] row, double[] contain){
         var a = toDoubleList(row);
@@ -79,9 +82,9 @@ public class AdvMath {
 
     /**
      *
-     * @param row Set  (列）
-     * @param value 數值
-     * @return 主列出現該數值多少次
+     * @param row Set
+     * @param value value
+     * @return how many times that value contain in Set
      */
     public static long count(double[] row, double value){
         long count = 0;
@@ -93,9 +96,9 @@ public class AdvMath {
 
     /**
      *
-     * @param tables 表
-     * @param set subSet 子列
-     * @return 表出現子列多少次
+     * @param tables Tables
+     * @param set SubSet
+     * @return How many tables does subset have
      */
     public static long count(double[][] tables, double[] set){
         long count = 0;
@@ -107,8 +110,8 @@ public class AdvMath {
 
     /**
      *
-     * @param arr 數字串
-     * @return 裝載 Double 的 List
+     * @param arr double array
+     * @return double List
      */
     public static List<Double> toDoubleList(double[] arr){
         List<Double> d = new ArrayList<>();
@@ -120,7 +123,7 @@ public class AdvMath {
 
     /**
      *
-     * @param arr 任何物件的列
+     * @param arr object array
      * @return double array
      */
     public static double[] toHashDoubleArray(Object[] arr){
@@ -133,9 +136,9 @@ public class AdvMath {
 
     /**
      *
-     * @param total 總共數量
-     * @param a 第一項物品的擁有數值
-     * @param b 第二項物品的擁有數值
+     * @param total total
+     * @param a first item value
+     * @param b second item value
      * @return Gini Index
      */
     public static double gini(double total, double a, double b) {
@@ -145,9 +148,9 @@ public class AdvMath {
 
     /**
      *
-     * @param total 總共數量
-     * @param a 第一項物品的擁有數值
-     * @param b 第二項物品的擁有數值
+     * @param total total value
+     * @param a first item value
+     * @param b second item value
      * @return entropy value
      */
     public static double entropy(double total, double a, double b) {
@@ -157,9 +160,9 @@ public class AdvMath {
 
     /**
      *
-     * @param total 總共數量
-     * @param a 第一項物品的擁有數值
-     * @param b 第二項物品的擁有數值
+     * @param total total value
+     * @param a first item value
+     * @param b second item value
      * @return computed error rate
      */
     public static double computeErr(double total, double a, double b) {

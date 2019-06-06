@@ -30,7 +30,7 @@ public class RankDataManager {
     private Normalization normal;
 
     /**
-     * @return 此 Class 實例
+     * @return instance
      */
     public static RankDataManager getInstance() {
         if (rankDataManager == null) rankDataManager = new RankDataManager();
@@ -53,8 +53,8 @@ public class RankDataManager {
 
     /**
      *
-     * @param type 演算法類型
-     * @param score 標準分
+     * @param type calculation type
+     * @param score final score
      * @return 段位
      */
     public static String getRank(CalType type, double score) {
@@ -96,8 +96,8 @@ public class RankDataManager {
 
     /**
      *
-     * @param uuid 玩家UUID
-     * @return 玩家是否在快取內
+     * @param uuid uuid
+     * @return in rank list cache
      */
     public boolean rankContain(UUID uuid) {
         return rankData.stream().anyMatch(l -> l.getPlayerUniqueId().equals(uuid));
@@ -116,9 +116,9 @@ public class RankDataManager {
     }
 
     /**
-     * 用於篡改排位存儲數據
-     * @param uuid 玩家UUID
-     * @param data 新的排位存儲數據
+     * use for edit rank data
+     * @param uuid uuid
+     * @param data new rank data
      */
     public void setRankData(UUID uuid, RankData data) {
         rankData.removeIf(l -> l.equals(uuid));
@@ -126,11 +126,11 @@ public class RankDataManager {
     }
 
     /**
-     * 用於更新玩家數據，
-     * 在數據被修改之後必須使用此方法以更改段位數據。
-     * 若玩家getPlays數據尚未通過特定條件則不會進行任何更新。
+     * use to update player data and rank data
+     * it should be use when any player data has been edited
+     * else, the rank data won't be updated
      *
-     * @param uuid 玩家UUID
+     * @param uuid uuid
      */
     public void update(UUID uuid) {
         PluginManager manager = PvPRanking.getPlugin().getServer().getPluginManager();

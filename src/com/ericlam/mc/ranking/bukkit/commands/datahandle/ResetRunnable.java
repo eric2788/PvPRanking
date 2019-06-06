@@ -7,12 +7,12 @@ public class ResetRunnable extends CommandRunnable {
     @Override
     public void run() {
         if (player == null) {
-            sender.sendMessage("§c找不到此玩家。");
+            sender.sendMessage("§cPlayer not found.");
             return;
         }
 
         var success = RankDataManager.getInstance().getDataHandler().removePlayerData(player);
-        sender.sendMessage("§e刪除" + (success ? "成功。" : "失敗。"));
+        sender.sendMessage("§edelete" + (success ? "success" : "failed"));
     }
 
 }

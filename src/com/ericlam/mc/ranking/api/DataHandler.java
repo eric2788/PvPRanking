@@ -8,58 +8,58 @@ import java.util.TreeSet;
 import java.util.UUID;
 
 /**
- * 透過 繼承此 接口  掛接自定義的儲存數據的各種方法(包括獲取/儲存/刪除)
+ * data handler api
  */
 public abstract class DataHandler {
 
     /**
-     * 若果你的存儲數據 Class 有套接 PlayerData , 則從這裏返回
+     * get the player data
      *
-     * @param playerUniqueId 玩家UUID
-     * @return 玩家存儲數據
+     * @param playerUniqueId player UUID
+     * @return player data
      */
     public abstract PlayerData getPlayerData(UUID playerUniqueId);
 
     /**
      *
-     *  若果你的存儲數據 Class 有套接 PlayerData , 則從這裏返回。
+     * get all player data
      *
-     * 注意！此方法將作為獲取所有玩家數據并計算排位積分，因此你需要在此方法返回所有離線數據。
+     * this is used to calculate all the rank data , so it is required to get the data including offline.
      *
-     * @return 返回所有的玩家存儲數據
+     * @return all player data
      *
      */
     public abstract TreeSet<PlayerData> getAllPlayerData();
 
     /**
      *
-     * 存儲方法，若果你不想使用本 API 進行存儲，則可漏空
+     * save method , can be optional to be empty
      *
-     * @param playerUniqueId 玩家UUID
+     * @param playerUniqueId player UUID
      */
     public abstract void savePlayerData(UUID playerUniqueId);
 
     /**
      *
-     * @param player 玩家
-     * @return 多行數的文字資訊訊息
+     * @param player player
+     * @return String array to send messages
      */
     public abstract String[] showPlayerData(@Nonnull OfflinePlayer player);
 
     /**
      *
-     * @param player 玩家
-     * @return 刪除結果
+     * @param player player
+     * @return deleting result
      */
     public abstract boolean removePlayerData(@Nonnull OfflinePlayer player);
 
     /**
-     * 存儲方法，若果你不想使用本 API 進行存儲，則可漏空
+     * save all player data method, can be optional to be empty
      */
     public abstract void saveAllPlayerData();
 
     /**
-     * 註冊 此套接
+     * register this API
      */
     public final void register(){
         RankDataManager.getInstance().setHandler(this);

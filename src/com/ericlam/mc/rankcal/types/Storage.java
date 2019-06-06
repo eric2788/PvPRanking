@@ -2,11 +2,11 @@ package com.ericlam.mc.rankcal.types;
 
 public enum Storage {
     /**
-     * Yaml儲存
+     * Yaml Storage
      */
     YAML,
     /**
-     * MySQL儲存
+     * MySQL Storage
      */
     MYSQL
 }

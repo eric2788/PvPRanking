@@ -7,7 +7,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 
 /**
- * 標準分更新時觸發
+ * when n-score update
  */
 public class NScoreUpdateEvent extends PlayerEvent {
 
@@ -16,9 +16,9 @@ public class NScoreUpdateEvent extends PlayerEvent {
     private HandlerList handlerList;
 
     /**
-     * @param who      玩家
-     * @param data     玩家存儲數據
-     * @param rankData 排位存儲數據
+     * @param who      player
+     * @param data     player data
+     * @param rankData rank data
      */
     public NScoreUpdateEvent(Player who, PlayerData data, RankData rankData) {
         super(who);
@@ -34,7 +34,7 @@ public class NScoreUpdateEvent extends PlayerEvent {
 
     /**
      *
-     * @return 玩家存儲數據
+     * @return player data
      */
     public PlayerData getPlayerData() {
         return playerData;
@@ -42,7 +42,7 @@ public class NScoreUpdateEvent extends PlayerEvent {
 
     /**
      *
-     * @return 玩家排位數據
+     * @return rank data
      */
     public RankData getRankData() {
         return rankData;

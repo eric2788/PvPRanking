@@ -33,16 +33,16 @@ public class RankCommandExecutor implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        ComponentBuilder author = new ComponentBuilder("§7插件作者: §m§bEric Lam").event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/eric2788")).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§b打開 Github 連結")));
-        ComponentBuilder source = new ComponentBuilder("§d>> 插件原始碼").event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/eric2788/PvPRanking")).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§b打開 Github 連結")));
+        ComponentBuilder author = new ComponentBuilder("§7Author: §m§bEric Lam").event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/eric2788")).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§b打開 Github 連結")));
+        ComponentBuilder source = new ComponentBuilder("§d>> SourceCode").event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/eric2788/PvPRanking")).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§b打開 Github 連結")));
         if (strings.length < 2) {
-            commandSender.sendMessage("§ePvPRanking §7- §e版本 §a" + PvPRanking.getPlugin().getDescription().getVersion());
+            commandSender.sendMessage("§ePvPRanking §7- §ev §a" + PvPRanking.getPlugin().getDescription().getVersion());
             commandSender.spigot().sendMessage(author.create());
             commandSender.spigot().sendMessage(source.create());
             if (!commandSender.hasPermission("pvprank.help")) return true;
             commandSender.sendMessage("§e幫助:");
-            commandSender.sendMessage("§a/pvprank info <player> §7- 查看玩家的排位");
-            commandSender.sendMessage("§a/pvprank reset <player> §7- 重設玩家的排位");
+            commandSender.sendMessage("§a/pvprank info <player> §7- check player ranking");
+            commandSender.sendMessage("§a/pvprank reset <player> §7- reset player ranking");
             return false;
         }
 
@@ -50,12 +50,12 @@ public class RankCommandExecutor implements CommandExecutor, TabCompleter {
         var off = getOfflinePlayer(strings[1]);
 
         if (off == null) {
-            commandSender.sendMessage("§c找不到此玩家。");
+            commandSender.sendMessage("§not found player.");
             return false;
         }
 
         if (!commandSender.hasPermission("pvprank." + method)) {
-            commandSender.sendMessage("§c你沒有權限。");
+            commandSender.sendMessage("§no permission。");
             return false;
         }
 
@@ -75,11 +75,11 @@ public class RankCommandExecutor implements CommandExecutor, TabCompleter {
             case "reset":
                 Bukkit.getScheduler().runTaskAsynchronously(pl, () -> {
                     var success = RankDataManager.getInstance().removeRankData(off.getUniqueId());
-                    commandSender.sendMessage("§e刪除 " + (success ? "成功。" : "失敗，可能查無資料。"));
+                    commandSender.sendMessage("§edelete " + (success ? "success" : "failed, maybe data empty"));
                 });
                 return true;
             default:
-                commandSender.sendMessage("§c找不到此指令。");
+                commandSender.sendMessage("§cno this command");
                 return false;
         }
     }

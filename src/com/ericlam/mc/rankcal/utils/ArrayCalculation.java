@@ -9,7 +9,7 @@ public class ArrayCalculation {
     private double variance;
 
     /**
-     * @param ints 數字串
+     * @param ints int array
      */
     public ArrayCalculation(double... ints) {
         this.ints = ints;
@@ -29,7 +29,7 @@ public class ArrayCalculation {
 
     /**
      *
-     * @return 平均值
+     * @return mean
      */
     public double getMean() {
         return mean;
@@ -37,7 +37,7 @@ public class ArrayCalculation {
 
     /**
      *
-     * @return 標準差
+     * @return standard deviation
      */
     public double getSd() {
         return sd;
@@ -45,7 +45,7 @@ public class ArrayCalculation {
 
     /**
      *
-     * @return 方差
+     * @return variance
      */
     public double getVariance() {
         return variance;

@@ -3,24 +3,24 @@ package com.ericlam.mc.ranking.api;
 import java.util.UUID;
 
 /**
- * 此接口用於套接自定義的儲存數據
+ * player data interface
  */
 public interface PlayerData extends Comparable<PlayerData> {
 
     /**
-     * @return 總積分, 自由計算
+     * @return total scores
      */
     double getFinalScores();
 
     /**
      *
-     * @return 遊玩次數/勝數, 自由計算
+     * @return played times
      */
     int getPlays();
 
     /**
      *
-     * @return 玩家 UUID
+     * @return player UUID
      */
     UUID getPlayerUniqueId();
 

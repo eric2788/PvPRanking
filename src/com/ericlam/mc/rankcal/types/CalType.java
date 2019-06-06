@@ -2,11 +2,11 @@ package com.ericlam.mc.rankcal.types;
 
 public enum CalType {
     /**
-     * Z_Score 演算法
+     * Z_Score Calculation
      */
     Z_SCORE,
     /**
-     * 大小值壓縮演算
+     * Min Max Calculation
      */
     MIN_MAX
 }

@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Don't ask me why I use Runnable, I just wanna try different way to implement this shit
- * 哈？ 為啥我用 Runnable ? 我只是想試試新方法玩玩而已ww
+ * I just wanna try different way to implement this shit
  */
 public class PvPDataCommandExecutor implements CommandExecutor, TabCompleter {
 
@@ -31,16 +30,16 @@ public class PvPDataCommandExecutor implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        ComponentBuilder author = new ComponentBuilder("§7插件作者: §m§bEric Lam").event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/eric2788")).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§b打開 Github 連結")));
-        ComponentBuilder source = new ComponentBuilder("§d>> 插件原始碼").event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/eric2788/PvPRanking")).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§b打開 Github 連結")));
+        ComponentBuilder author = new ComponentBuilder("§7Author: §m§bEric Lam").event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/eric2788")).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§b打開 Github 連結")));
+        ComponentBuilder source = new ComponentBuilder("§d>> SourceCode").event(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/eric2788/PvPRanking")).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText("§b打開 Github 連結")));
         if (strings.length < 2) {
-            commandSender.sendMessage("§ePvPRanking §7- §e版本 §a" + PvPRanking.getPlugin().getDescription().getVersion());
+            commandSender.sendMessage("§ePvPRanking §7- §ev §a" + PvPRanking.getPlugin().getDescription().getVersion());
             commandSender.spigot().sendMessage(author.create());
             commandSender.spigot().sendMessage(source.create());
             if (!commandSender.hasPermission("pvprank.help")) return true;
             commandSender.sendMessage("§e幫助:");
-            commandSender.sendMessage("§a/pvpdata info <player> §7- 查看玩家的排位");
-            commandSender.sendMessage("§a/pvpdata reset <player> §7- 重設玩家的排位");
+            commandSender.sendMessage("§a/pvpdata info <player> §7- check player data");
+            commandSender.sendMessage("§a/pvpdata reset <player> §7- reset player data");
             return true;
         }
 

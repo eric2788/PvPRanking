@@ -19,8 +19,7 @@ import java.util.TreeSet;
 import java.util.UUID;
 
 /**
- * me fucking lazy, so i dont fucking use interface to split data storage method here
- * 別吐糟我為啥不用 Interface 分開 yaml 和 mysql 存儲, 因為我懶哈哈哈ww
+ * me lazy, so i dont use interface to split data storage method here
  */
 public class DefaultDataManager {
     private TreeSet<DefaultData> datas = new TreeSet<>();

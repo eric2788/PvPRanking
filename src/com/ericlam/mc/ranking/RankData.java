@@ -12,9 +12,9 @@ public class RankData implements Comparable<RankData>, Cloneable {
     private double nScores;
 
     /**
-     * @param data    玩家存儲數據
-     * @param rank    段位
-     * @param nScores 標準分
+     * @param data    player data
+     * @param rank    rank
+     * @param nScores n-score
      */
     public RankData(PlayerData data, String rank, double nScores) {
         this.data = data;
@@ -23,7 +23,7 @@ public class RankData implements Comparable<RankData>, Cloneable {
     }
 
     /**
-     * @return 積分
+     * @return scores
      */
     public double getFinalScores() {
         return data.getFinalScores();
@@ -31,7 +31,7 @@ public class RankData implements Comparable<RankData>, Cloneable {
 
     /**
      *
-     * @return 遊玩次數
+     * @return played
      */
     public int getPlays() {
         return data.getPlays();
@@ -39,7 +39,7 @@ public class RankData implements Comparable<RankData>, Cloneable {
 
     /**
      *
-     * @return 玩家 UUID
+     * @return player UUID
      */
     public UUID getPlayerUniqueId() {
         return data.getPlayerUniqueId();
@@ -47,7 +47,7 @@ public class RankData implements Comparable<RankData>, Cloneable {
 
     /**
      *
-     * @return 段位
+     * @return rank
      */
     public String getRank() {
         return rank;
@@ -55,7 +55,7 @@ public class RankData implements Comparable<RankData>, Cloneable {
 
     /**
      *
-     * @return 標準分
+     * @return n-scores
      */
     public double getnScores() {
         return nScores;
@@ -70,8 +70,8 @@ public class RankData implements Comparable<RankData>, Cloneable {
 
     /**
      *
-     * @param uuid 玩家UUID
-     * @return 是否相同
+     * @param uuid player UUID
+     * @return equal
      */
     public boolean equals(UUID uuid){
         return uuid.equals(this.getPlayerUniqueId());
@@ -89,7 +89,7 @@ public class RankData implements Comparable<RankData>, Cloneable {
 
     /**
      *
-     * @return 創建相同數據的 RankData
+     * @return clone RankData
      */
     @Override
     public RankData clone() {

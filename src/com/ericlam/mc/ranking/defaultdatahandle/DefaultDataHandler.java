@@ -28,11 +28,11 @@ public class DefaultDataHandler extends DataHandler {
     @Override
     public String[] showPlayerData(@Nonnull OfflinePlayer player) {
         DefaultData data = DefaultDataManager.getInstance().findData(player.getUniqueId());
-        String line1 = "§e玩家: §f" + player.getName();
-        String line2 = "§e殺數: §f" + data.getKills();
-        String line3 = "§e死數: §f" + data.getDeaths();
-        String line4 = "§e戰數: §f" + data.getPlays();
-        String line5 = "§e積分: §f" + data.getFinalScores();
+        String line1 = "§ePlayer: §f" + player.getName();
+        String line2 = "§eKills: §f" + data.getKills();
+        String line3 = "§eDeaths: §f" + data.getDeaths();
+        String line4 = "§ePlayed: §f" + data.getPlays();
+        String line5 = "§eScore: §f" + data.getFinalScores();
         return new String[]{line1, line2, line3, line4, line5};
     }
 

@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 
 /**
- * 降段時觸發
+ * when rank down
  */
 public class RankDownEvent extends RankEvent {
 

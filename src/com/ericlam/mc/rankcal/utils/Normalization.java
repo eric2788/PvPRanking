@@ -17,7 +17,7 @@ public class Normalization {
     private ArrayCalculation cal;
 
     /**
-     * @param data 玩家儲存數據列
+     * @param data player data list
      */
     public Normalization(List<PlayerData> data) {
         this.ints = data.stream().filter(d->d.getPlays() >= (int)PvPRanking.getConfigData("required-plays")).collect(Collectors.toList());
@@ -30,10 +30,10 @@ public class Normalization {
 
     /**
      *
-     * @param new_min 最低值
-     * @param new_max 最高值
-     * @param data 玩家存儲數據
-     * @return 該玩家的排位存儲數據
+     * @param new_min new min value
+     * @param new_max new max value
+     * @param data player data
+     * @return rank data
      */
     public RankData minMaxNormalizeSingle(int new_min,int new_max,PlayerData data){
         double v = data.getFinalScores();
@@ -44,9 +44,9 @@ public class Normalization {
 
     /**
      *
-     * @param new_min 最低值
-     * @param new_max 最高值
-     * @return 排位存儲數據列
+     * @param new_min new min value
+     * @param new_max new max value
+     * @return rank data array
      */
     public RankData[] minMaxNormalize(int new_min,int new_max){
         RankData[] normalized = new RankData[ints.size()];
@@ -59,8 +59,8 @@ public class Normalization {
 
     /**
      *
-     * @param data 玩家存儲數據
-     * @return 該玩家的排位存儲數據
+     * @param data player data
+     * @return rank data
      */
     public RankData zScoreNormalizeSingle(PlayerData data){
         double v = data.getFinalScores();
@@ -71,7 +71,7 @@ public class Normalization {
 
     /**
      *
-     * @return 排位存儲數據列
+     * @return rank data array
      */
     public RankData[] zScoreNormalize(){
         RankData[] normalized = new RankData[ints.size()];
@@ -83,8 +83,8 @@ public class Normalization {
     }
 
     /**
-     * @deprecated 使用 數位進制 進行的演算，目前尚不支持。
-     * @return 排位存儲數據列
+     * @deprecated decimal Scaling is not support for rank calcuation now
+     * @return rank data array
      */
     @Deprecated
     public RankData[] decimalScaling(){

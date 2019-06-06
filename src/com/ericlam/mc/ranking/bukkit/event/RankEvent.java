@@ -6,7 +6,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.player.PlayerEvent;
 
 /**
- * 主體的 Rank 事件
+ * rank event
  */
 public abstract class RankEvent extends PlayerEvent implements Cancellable {
 
@@ -15,9 +15,9 @@ public abstract class RankEvent extends PlayerEvent implements Cancellable {
     private boolean cancelled;
 
     /**
-     * @param who     玩家
-     * @param oldRank 舊排位存儲數據
-     * @param newRank 新排位存儲數據
+     * @param who     player
+     * @param oldRank old rank data
+     * @param newRank new rank data
      */
     public RankEvent(Player who, RankData oldRank, RankData newRank) {
         super(who);
@@ -27,7 +27,7 @@ public abstract class RankEvent extends PlayerEvent implements Cancellable {
     }
 
     /**
-     * @return 該玩家新的排位存儲數據
+     * @return get new rank
      */
     public RankData getNewRank() {
         return newRank;
@@ -35,16 +35,16 @@ public abstract class RankEvent extends PlayerEvent implements Cancellable {
 
     /**
      *
-     * @return 該玩家舊的排位存儲數據
+     * @return get old rank
      */
     public RankData getOldRank() {
         return oldRank;
     }
 
     /**
-     * 取消的是通知事件，而不是段位的升降。
+     * cancel notification only
      *
-     * @return 是否取消通知事件
+     * @return cancel
      */
     @Override
     public boolean isCancelled() {
@@ -52,9 +52,9 @@ public abstract class RankEvent extends PlayerEvent implements Cancellable {
     }
 
     /**
-     * 取消的是通知事件，而不是段位的升降。
+     * cancel notification only
      *
-     * @param b 是否取消通知事件
+     * @param b cancel
      */
     @Override
     public void setCancelled(boolean b) {
