@@ -23,3 +23,12 @@ handle-data-save: true
 
 # default calculated format
 default-calculate-format: "<kills> * 50 - <deaths> * 20"
+
+#Unranked tag
+unranked-tag: "UnRanked"
+
+#rankup title
+rankup-subtitle: "&k&a||&e RANK UP &k&a||"
+
+#rank updated msg,can be either rank up or rank down
+rank-updated-msg: "&bRank data has been updated。"

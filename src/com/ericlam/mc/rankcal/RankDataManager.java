@@ -17,6 +17,7 @@ import com.ericlam.mc.ranking.storage.MySQLStorage;
 import com.ericlam.mc.ranking.storage.YamlStorage;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 
@@ -28,6 +29,7 @@ public class RankDataManager {
     private DataHandler dataHandler;
     private TreeSet<RankData> rankData = new TreeSet<>();
     private Normalization normal;
+    private String rankupTitle, rankupMsg;
 
     /**
      * @return instance
@@ -47,6 +49,8 @@ public class RankDataManager {
                 default:
                 storage = new MySQLStorage();
         }
+        this.rankupTitle = ChatColor.translateAlternateColorCodes('&', (String) PvPRanking.getConfigData("rankup-subtitle"));
+        this.rankupMsg = ChatColor.translateAlternateColorCodes('&', (String) PvPRanking.getConfigData("rank-updated-msg"));
         // Dangerous to load too many in mysql
         //rankData.addAll(storage.loadRankData());
     }
@@ -158,8 +162,8 @@ public class RankDataManager {
             RankEvent event = newRank.getnScores() > oldRank.getnScores() ? new RankUpEvent(player, oldRank, newRank) : new RankDownEvent(player, oldRank, newRank);
             manager.callEvent(event);
             if (event.isCancelled()) return;
-            event.getPlayer().sendMessage("§bRank data has been updated。");
-            if (event instanceof RankUpEvent) event.getPlayer().sendTitle("", "§k§a||§e RANK UP §k§a||", 20, 40, 20);
+            event.getPlayer().sendMessage(rankupMsg);
+            if (event instanceof RankUpEvent) event.getPlayer().sendTitle("", rankupTitle, 20, 40, 20);
         }
     }
 

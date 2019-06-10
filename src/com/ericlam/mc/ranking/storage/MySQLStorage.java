@@ -3,7 +3,9 @@ package com.ericlam.mc.ranking.storage;
 import com.ericlam.mc.rankcal.RankDataManager;
 import com.ericlam.mc.ranking.RankData;
 import com.ericlam.mc.ranking.api.PlayerData;
+import com.ericlam.mc.ranking.main.PvPRanking;
 import com.ericlam.mc.ranking.sql.SQLManager;
+import org.bukkit.ChatColor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +16,7 @@ import java.util.UUID;
 
 public class MySQLStorage implements DataStorage {
 
+    private String unranked;
 
     public MySQLStorage(){
         try(Connection connection = SQLManager.getInstance().getConnection();
@@ -22,6 +25,7 @@ public class MySQLStorage implements DataStorage {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        this.unranked = ChatColor.translateAlternateColorCodes('&', (String) PvPRanking.getConfigData("unranked-tag"));
     }
 
     @Override
@@ -58,7 +62,7 @@ public class MySQLStorage implements DataStorage {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new RankData(data, "UnRanked", 0.0);
+        return new RankData(data, unranked, 0.0);
     }
 
     @Override

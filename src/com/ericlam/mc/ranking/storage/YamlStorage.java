@@ -3,7 +3,9 @@ package com.ericlam.mc.ranking.storage;
 import com.ericlam.mc.rankcal.RankDataManager;
 import com.ericlam.mc.ranking.RankData;
 import com.ericlam.mc.ranking.api.PlayerData;
+import com.ericlam.mc.ranking.main.PvPRanking;
 import org.apache.commons.io.FilenameUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -15,10 +17,12 @@ import java.util.UUID;
 public class YamlStorage implements DataStorage {
 
     private File folder;
+    private String unranked;
 
     public YamlStorage() {
         this.folder = new File(plugin.getDataFolder(), "Ranking_Data"); //定位 Ranking_Data 資料夾
         if (!folder.exists()) folder.mkdir(); //若不存在, 則創建一個 (mkdir 為創建資料夾, createFile 為 創建文件)
+        this.unranked = ChatColor.translateAlternateColorCodes('&', (String) PvPRanking.getConfigData("unranked-tag"));
     }
 
     @Override
@@ -41,7 +45,7 @@ public class YamlStorage implements DataStorage {
     public RankData getRankData(UUID playerUniqueId) {
         PlayerData data = RankDataManager.getInstance().getDataHandler().getPlayerData(playerUniqueId);
         File file = new File(folder, playerUniqueId.toString() + ".yml");//定位文件位置
-        if (!file.exists()) return new RankData(data, "UnRanked", 0.0);
+        if (!file.exists()) return new RankData(data, unranked, 0.0);
         FileConfiguration user = YamlConfiguration.loadConfiguration(file);//把定位文件加載為 yaml config
         double nScore = user.getDouble("n-score"); //透過路徑獲取數據
         String rank = user.getString("rank");

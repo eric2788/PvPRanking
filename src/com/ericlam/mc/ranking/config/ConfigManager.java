@@ -24,7 +24,9 @@ public class ConfigManager {
         database = YamlConfiguration.loadConfiguration(dbFile);
         rank = YamlConfiguration.loadConfiguration(rankFile);
         config.addDefault("default-calculate-format", "<kills> * 50 - <deaths> * 20");
-        ;
+        config.addDefault("unranked-tag", "UnRanked");
+        config.addDefault("rankup-subtitle", "&k&a||&e RANK UP &k&a||");
+        config.addDefault("rank-updated-msg", "&bRank data has been updated。");
         try {
             config.save(cfFile);
         } catch (IOException e) {
