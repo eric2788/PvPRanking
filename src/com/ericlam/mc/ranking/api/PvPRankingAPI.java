@@ -87,9 +87,9 @@ public class PvPRankingAPI {
      */
     public static double getDefaultScore(int kills, int deaths) {
         String script = PvPRanking.getConfigManager().getCalFormat().replace("<kills>", kills + "").replace("<deaths>", deaths + "");
-        ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("js");
         try {
-            return (double) engine.eval(script);
+            return (double) (Integer) engine.eval(script);
         } catch (ScriptException e) {
             Bukkit.getLogger().warning("Script calculation failed. changing it to 0");
             return 0;
