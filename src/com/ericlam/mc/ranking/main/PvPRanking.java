@@ -96,7 +96,7 @@ public class PvPRanking extends JavaPlugin {
             storage = Storage.YAML;
         }
 
-        ranks = configManager.getRank().getStringList("ranks").toArray(String[]::new);
+        ranks = configManager.getRank().getStringList("ranks").toArray(new String[0]);
 
         if (RankDataManager.getInstance().getDataHandler() == null) new DefaultDataHandler().register();
         getServer().getPluginManager().registerEvents(new RankingListeners(this),this);

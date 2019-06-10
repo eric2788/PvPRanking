@@ -6,6 +6,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,8 +44,8 @@ public class PvPDataCommandExecutor implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        var method = strings[0].toLowerCase();
-        var player = RankCommandExecutor.getOfflinePlayer(strings[1]);
+        String method = strings[0].toLowerCase();
+        OfflinePlayer player = RankCommandExecutor.getOfflinePlayer(strings[1]);
 
         if (!subcommands.contains(method)) {
             commandSender.sendMessage("§c找不到此指令。");

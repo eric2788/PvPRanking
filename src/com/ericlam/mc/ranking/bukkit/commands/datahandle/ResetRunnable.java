@@ -11,7 +11,7 @@ public class ResetRunnable extends CommandRunnable {
             return;
         }
 
-        var success = RankDataManager.getInstance().getDataHandler().removePlayerData(player);
+        boolean success = RankDataManager.getInstance().getDataHandler().removePlayerData(player);
         sender.sendMessage("§edelete" + (success ? "success" : "failed"));
     }
 

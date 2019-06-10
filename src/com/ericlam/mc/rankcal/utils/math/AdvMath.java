@@ -75,8 +75,8 @@ public class AdvMath {
      * @return Set contain subset
      */
     public static boolean contain(double[] row, double[] contain){
-        var a = toDoubleList(row);
-        var b = toDoubleList(contain);
+        List<Double> a = toDoubleList(row);
+        List<Double> b = toDoubleList(contain);
         return a.containsAll(b);
     }
 

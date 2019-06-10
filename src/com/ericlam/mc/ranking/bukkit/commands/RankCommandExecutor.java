@@ -15,6 +15,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class RankCommandExecutor implements CommandExecutor, TabCompleter {
@@ -46,8 +47,8 @@ public class RankCommandExecutor implements CommandExecutor, TabCompleter {
             return false;
         }
 
-        var method = strings[0].toLowerCase();
-        var off = getOfflinePlayer(strings[1]);
+        String method = strings[0].toLowerCase();
+        OfflinePlayer off = getOfflinePlayer(strings[1]);
 
         if (off == null) {
             commandSender.sendMessage("§not found player.");
@@ -63,7 +64,7 @@ public class RankCommandExecutor implements CommandExecutor, TabCompleter {
             case "info":
                 Bukkit.getScheduler().runTaskAsynchronously(pl, () -> {
                     RankData data = RankDataManager.getInstance().getRankData(off.getUniqueId());
-                    var list = PvPRanking.getConfigManager().getConfig().getStringList("info-message");
+                    List<String> list = PvPRanking.getConfigManager().getConfig().getStringList("info-message");
                     list.forEach(line -> {
                         String replaced = line.replace("<name>", off.getName())
                                 .replace("<rank>", data.getRank()).replace("<score>", data.getFinalScores() + "")
@@ -74,7 +75,7 @@ public class RankCommandExecutor implements CommandExecutor, TabCompleter {
                 return true;
             case "reset":
                 Bukkit.getScheduler().runTaskAsynchronously(pl, () -> {
-                    var success = RankDataManager.getInstance().removeRankData(off.getUniqueId());
+                    boolean success = RankDataManager.getInstance().removeRankData(off.getUniqueId());
                     commandSender.sendMessage("§edelete " + (success ? "success" : "failed, maybe data empty"));
                 });
                 return true;
@@ -86,6 +87,6 @@ public class RankCommandExecutor implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
-        return strings.length == 1 ? List.of("info", "reset") : null;
+        return strings.length == 1 ? Arrays.asList("info", "reset") : null;
     }
 }

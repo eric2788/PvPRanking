@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Arrays;
 
 public class ConfigManager {
     private FileConfiguration config;
@@ -17,7 +17,7 @@ public class ConfigManager {
         File cfFile = new File(plugin.getDataFolder(),"config.yml");
         File dbFile = new File(plugin.getDataFolder(),"database.yml");
         File rankFile = new File(plugin.getDataFolder(),"rank.yml");
-        for (File file : List.of(cfFile, dbFile, rankFile)) {
+        for (File file : Arrays.asList(cfFile, dbFile, rankFile)) {
             if (!file.exists()) plugin.saveResource(file.getName(), true);
         }
         config = YamlConfiguration.loadConfiguration(cfFile);
