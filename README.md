@@ -7,7 +7,7 @@ Using Normalization as ranking calculation。
 ### Version: 
 1.12.2 ~ 1.13.2 (1.12.2 / 1.14~ not tested)
 
-[!] Java11
+[!] Java8
 
 plugin version: go to [here](/src/plugin.yml)
 
