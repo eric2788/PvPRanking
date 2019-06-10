@@ -23,15 +23,21 @@ public class ConfigManager {
         config = YamlConfiguration.loadConfiguration(cfFile);
         database = YamlConfiguration.loadConfiguration(dbFile);
         rank = YamlConfiguration.loadConfiguration(rankFile);
-        config.addDefault("default-calculate-format", "<kills> * 50 - <deaths> * 20");
-        config.addDefault("unranked-tag", "UnRanked");
-        config.addDefault("rankup-subtitle", "&k&a||&e RANK UP &k&a||");
-        config.addDefault("rank-updated-msg", "&bRank data has been updated。");
+        addDefault(config, "default-calculate-format", "<kills> * 50 - <deaths> * 20");
+        addDefault(config, "unranked-tag", "UnRanked");
+        addDefault(config, "rankup-subtitle", "&k&a||&e RANK UP &k&a||");
+        addDefault(config, "rank-updated-msg", "&bRank data has been updated。");
         try {
             config.save(cfFile);
+            config = YamlConfiguration.loadConfiguration(cfFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void addDefault(FileConfiguration config, String path, Object value) {
+        if (config.contains(path)) return;
+        config.set(path, value);
     }
 
     public FileConfiguration getDatabase() {
