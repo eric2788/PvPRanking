@@ -10,6 +10,10 @@ import org.bukkit.event.HandlerList;
 public class RankDownEvent extends RankEvent {
 
     private static final HandlerList handlerList = new HandlerList();
+
+    public static HandlerList getHandlerList() {
+        return handlerList;
+    }
     public RankDownEvent(Player who, RankData oldRank, RankData newRank) {
         super(who, oldRank, newRank);
     }

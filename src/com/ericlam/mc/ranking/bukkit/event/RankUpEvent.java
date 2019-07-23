@@ -10,6 +10,11 @@ import org.bukkit.event.HandlerList;
 public class RankUpEvent extends RankEvent {
 
     private static final HandlerList handlerList = new HandlerList();
+
+    public static HandlerList getHandlerList() {
+        return handlerList;
+    }
+
     public RankUpEvent(Player who, RankData oldRank, RankData newRank) {
         super(who, oldRank, newRank);
     }

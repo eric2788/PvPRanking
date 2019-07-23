@@ -15,6 +15,10 @@ public class NScoreUpdateEvent extends PlayerEvent {
     private RankData rankData;
     private static final HandlerList handlerList = new HandlerList();
 
+    public static HandlerList getHandlerList() {
+        return handlerList;
+    }
+
     /**
      * @param who      player
      * @param data     player data
