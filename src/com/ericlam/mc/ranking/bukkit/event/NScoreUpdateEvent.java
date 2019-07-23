@@ -13,7 +13,7 @@ public class NScoreUpdateEvent extends PlayerEvent {
 
     private PlayerData playerData;
     private RankData rankData;
-    private HandlerList handlerList;
+    private static final HandlerList handlerList = new HandlerList();
 
     /**
      * @param who      player
@@ -24,7 +24,6 @@ public class NScoreUpdateEvent extends PlayerEvent {
         super(who);
         this.playerData = data;
         this.rankData = rankData;
-        this.handlerList = new HandlerList();
     }
 
     @Override
